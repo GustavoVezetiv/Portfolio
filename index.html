@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gustavo Vezetiv - Portfólio ADS</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Roboto:wght@300;400;700&family=Montserrat:wght@400;700;900&family=Inter:wght@300;400;600&family=Fira+Code:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#6C8491] h-screen w-full overflow-hidden text-white select-none">
+
+    <div id="ugly-overlay">
+        <h1>Gustavo Vezetiv - Portfólio (Safe Mode)</h1>
+        <p>Bem-vindo ao sistema. A interface gráfica não foi carregada para economizar recursos.</p>
+        <p><strong>Status:</strong> Aguardando input do usuário.</p>
+        <hr style="margin: 20px 0; border: 1px solid #ccc;">
+        <h2>Dados do Desenvolvedor:</h2>
+        <ul>
+            <li>Nome: Thargon (Gustavo)</li>
+            <li>Classe: Tank / Full Stack</li>
+            <li>Localização: Cuiabá, MT</li>
+            <li>Stack: React, Python, Docker, PostgreSQL</li>
+        </ul>
+        <p>Para inicializar a interface gráfica avançada, é necessário realizar um teste de habilidade.</p>
+        <p>Por favor, utilize o <strong>Artefato D20</strong> localizado no canto inferior direito da sua tela.</p>
+    </div>
+
+    <div id="destiny-dice-container" onclick="rollDestiny()">
+        <div class="dice-tooltip">Rolar para Iniciar</div>
+        <div class="relative flex items-center justify-center w-20 h-20 bg-gradient-to-br from-indigo-600 to-purple-800 rounded-full shadow-2xl border-4 border-white/20">
+            <i id="d20-icon" class="fas fa-dice-d20 text-4xl text-white"></i>
+            <span id="d20-result" class="absolute text-white font-bold text-xl opacity-0 transition-opacity"></span>
+        </div>
+    </div>
+
+    <div id="crit-overlay" class="hidden critical-overlay">
+        <div class="flex flex-col items-center">
+            <div class="crit-text">NATURAL 20!</div>
+            <p class="text-white text-xl mt-4 font-mono">LOADING PERFECT INTERFACE...</p>
+        </div>
+        <canvas id="confetti-canvas" class="absolute inset-0 pointer-events-none"></canvas>
+    </div>
+
+    <main id="app-root" class="hidden w-full h-full relative">
+        
+        <section id="page-3" class="page-section hidden-page h-full w-full flex flex-col items-center justify-center font-inter bg-[#6C8491] relative">
+            
+            <div id="v3-hero" class="flex-1 flex flex-col justify-center items-center mb-24 animate-fadeIn transition-all duration-500">
+                <h1 class="font-montserrat font-black text-main text-[clamp(3rem,10vw,8rem)] leading-[0.9] uppercase tracking-tighter mix-blend-overlay">GUSTAVO</h1>
+                <p class="font-inter text-xl tracking-[4px] text-white/90 mt-4 uppercase drop-shadow-md">Full Stack Developer</p>
+                <div class="mt-2 flex gap-2">
+                     <span class="px-2 py-1 bg-white/10 rounded text-[10px] uppercase tracking-widest border border-white/20">Lv. 21</span>
+                     <span class="px-2 py-1 bg-white/10 rounded text-[10px] uppercase tracking-widest border border-white/20">Cuiabá-MT</span>
+                </div>
+            </div>
+
+            <div id="v3-app-window" class="hidden absolute inset-0 z-40 flex items-center justify-center p-4 md:p-10 backdrop-blur-md bg-black/40 app-window">
+                <div id="v3-app-content" class="w-full h-full max-w-6xl bg-[#0f1014] rounded-3xl border border-white/10 shadow-2xl overflow-hidden relative flex flex-col">
+                    <div class="h-12 bg-white/5 border-b border-white/5 flex items-center px-4 justify-between shrink-0">
+                        <div class="flex gap-2">
+                            <div onclick="closeV3App()" class="w-3 h-3 rounded-full bg-red-500 hover:bg-red-400 cursor-pointer"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <span id="v3-app-title" class="text-xs font-bold text-white/50 uppercase tracking-widest">App Name</span>
+                        <div class="w-10"></div>
+                    </div>
+                    <div id="v3-app-body" class="flex-1 overflow-y-auto overflow-x-hidden p-6 relative">
+                        </div>
+                </div>
+            </div>
+
+            <div id="source-v3-dock" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 w-auto max-w-[95vw]">
+                <div class="dock-container flex items-end gap-3 p-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl">
+                    
+                    <a href="https://linkedin.com" target="_blank" class="dock-item group relative w-12 h-12 bg-white/10 rounded-xl flex justify-center items-center text-white/90 text-2xl border border-white/5 cursor-pointer shadow-lg">
+                        <i class="fab fa-linkedin-in"></i>
+                        <span class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">LinkedIn</span>
+                    </a>
+
+                    <a href="https://instagram.com" target="_blank" class="dock-item group relative w-12 h-12 bg-white/10 rounded-xl flex justify-center items-center text-white/90 text-2xl border border-white/5 cursor-pointer shadow-lg">
+                        <i class="fab fa-instagram"></i>
+                        <span class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Instagram</span>
+                    </a>
+
+                    <a href="https://github.com" target="_blank" class="dock-item group relative w-12 h-12 bg-white/10 rounded-xl flex justify-center items-center text-white/90 text-2xl border border-white/5 cursor-pointer shadow-lg">
+                        <i class="fab fa-github"></i>
+                        <span class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">GitHub</span>
+                    </a>
+
+                    <div class="w-[1px] h-8 bg-white/20 mx-1 self-center"></div>
+
+                    <div onclick="openV3App('certificados')" class="dock-item group relative w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex justify-center items-center text-white text-2xl border border-white/20 cursor-pointer shadow-lg">
+                        <i class="fas fa-certificate"></i>
+                        <span class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Certificados</span>
+                    </div>
+
+                    <div onclick="openV3App('projetos')" class="dock-item group relative w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex justify-center items-center text-white text-2xl border border-white/20 cursor-pointer shadow-lg">
+                        <i class="fas fa-code"></i>
+                        <span class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Projetos</span>
+                    </div>
+
+                    <div onclick="openV3App('curriculo')" class="dock-item group relative w-12 h-12 bg-white/10 rounded-xl flex justify-center items-center text-white/90 text-2xl border border-white/5 cursor-pointer shadow-lg">
+                        <i class="far fa-file-pdf"></i>
+                        <span class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Currículo</span>
+                    </div>
+
+                    <div class="w-[1px] h-8 bg-white/20 mx-1 self-center"></div>
+
+                    <div onclick="openV3App('sobre')" class="dock-item group relative w-12 h-12 bg-white/10 rounded-xl flex justify-center items-center text-white/90 text-2xl border border-white/5 cursor-pointer shadow-lg">
+                        <i class="far fa-user"></i>
+                        <span class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Sobre Mim</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <div id="template-certificados" class="hidden">
+            <div class="text-center mb-12 mt-10">
+                <h2 class="font-montserrat text-3xl md:text-4xl font-extrabold text-white mb-3">Minhas Certificações</h2>
+                <p class="text-white/60 text-sm font-inter tracking-wide">Formações, Bootcamps e Especializações</p>
+            </div>
+            <div class="mb-12">
+                <h3 class="text-white font-montserrat font-bold text-lg mb-6 pl-4 border-l-4 border-orange-500 ml-2">DESTAQUES & BACKEND</h3>
+                <div id="marquee-cert-1" class="marquee-container w-full"><div class="marquee-content">
+                    <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform duration-300 pointer-events-none"><div class="h-[65%] w-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center"><i class="fa-brands fa-database text-4xl text-white"></i></div><div class="h-[35%] p-3 flex flex-col justify-center"><h3 class="text-white text-sm font-bold truncate">Eng. Dados</h3><p class="text-gray-400 text-xs truncate">Alura</p></div></div>
+                    <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform duration-300 pointer-events-none"><div class="h-[65%] w-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center"><i class="fa-brands fa-python text-4xl text-white"></i></div><div class="h-[35%] p-3 flex flex-col justify-center"><h3 class="text-white text-sm font-bold truncate">Python DS</h3><p class="text-gray-400 text-xs truncate">DataCamp</p></div></div>
+                    <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform duration-300 pointer-events-none"><div class="h-[65%] w-full bg-gradient-to-br from-green-500 to-emerald-700 flex items-center justify-center"><i class="fas fa-server text-4xl text-white"></i></div><div class="h-[35%] p-3 flex flex-col justify-center"><h3 class="text-white text-sm font-bold truncate">Backend Master</h3><p class="text-gray-400 text-xs truncate">Rocketseat</p></div></div>
+                    <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform duration-300 pointer-events-none"><div class="h-[65%] w-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center"><i class="fa-brands fa-react text-4xl text-white"></i></div><div class="h-[35%] p-3 flex flex-col justify-center"><h3 class="text-white text-sm font-bold truncate">React Native</h3><p class="text-gray-400 text-xs truncate">Rocketseat</p></div></div>
+                    <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform duration-300 pointer-events-none"><div class="h-[65%] w-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center"><i class="fas fa-graduation-cap text-4xl text-white"></i></div><div class="h-[35%] p-3 flex flex-col justify-center"><h3 class="text-white text-sm font-bold truncate">ADS - Superior</h3><p class="text-gray-400 text-xs truncate">IFMT</p></div></div>
+                </div></div>
+            </div>
+            <div class="mb-12">
+                <h3 class="text-white font-montserrat font-bold text-lg mb-6 pl-4 border-l-4 border-blue-500 ml-2">EVENTOS & IMERSÕES</h3>
+                <div id="marquee-cert-2" class="marquee-container w-full"><div class="marquee-content">
+                    <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform duration-300 pointer-events-none"><div class="h-[65%] w-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center"><i class="fas fa-rocket text-4xl text-white"></i></div><div class="h-[35%] p-3 flex flex-col justify-center"><h3 class="text-white text-sm font-bold truncate">NLW Unite</h3><p class="text-gray-400 text-xs truncate">Rocketseat</p></div></div>
+                    <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform duration-300 pointer-events-none"><div class="h-[65%] w-full bg-gradient-to-br from-yellow-400 to-orange-600 flex items-center justify-center"><i class="fas fa-brain text-4xl text-white"></i></div><div class="h-[35%] p-3 flex flex-col justify-center"><h3 class="text-white text-sm font-bold truncate">Imersão IA</h3><p class="text-gray-400 text-xs truncate">Alura</p></div></div>
+                    <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform duration-300 pointer-events-none"><div class="h-[65%] w-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center"><i class="fa-brands fa-docker text-4xl text-white"></i></div><div class="h-[35%] p-3 flex flex-col justify-center"><h3 class="text-white text-sm font-bold truncate">Docker Essentials</h3><p class="text-gray-400 text-xs truncate">Udemy</p></div></div>
+                </div></div>
+            </div>
+        </div>
+
+        <div id="template-projetos" class="hidden">
+            <div class="pt-10 px-4">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4 border-b border-white/10 pb-6">
+                    <div><h2 class="font-montserrat text-4xl md:text-5xl font-black text-white mb-2 tracking-tighter">PROJETOS</h2><p class="text-white/50 text-sm font-inter tracking-widest uppercase">Code • Deploy • Innovation</p></div>
+                    <div class="flex gap-2"><span class="px-3 py-1 rounded-full bg-white/5 text-xs text-white/60 border border-white/10">Full Stack</span></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-20">
+                    <div class="relative bg-[#141414]/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-1 group overflow-hidden">
+                        <div class="flex justify-between items-start mb-4"><div class="p-3 bg-white/5 rounded-lg"><i class="fas fa-code text-2xl text-orange-500"></i></div><div class="flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 border border-white/5"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span class="text-[10px] uppercase text-white/60 font-bold">online</span></div></div>
+                        <h3 class="text-xl font-montserrat font-bold text-white mb-2">Smart Home Dash</h3><p class="text-sm text-white/60 mb-6">Painel IoT com integração Alexa.</p>
+                        <div class="flex gap-3 text-white/40"><i class="fab fa-react"></i><i class="fab fa-node"></i><i class="fab fa-aws"></i></div>
+                    </div>
+                    <div class="relative bg-[#141414]/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-1 group overflow-hidden">
+                        <div class="flex justify-between items-start mb-4"><div class="p-3 bg-white/5 rounded-lg"><i class="fas fa-code text-2xl text-orange-500"></i></div><div class="flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 border border-white/5"><span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span><span class="text-[10px] uppercase text-white/60 font-bold">dev</span></div></div>
+                        <h3 class="text-xl font-montserrat font-bold text-white mb-2">E-commerce API</h3><p class="text-sm text-white/60 mb-6">API RESTful para gestão de loot.</p>
+                        <div class="flex gap-3 text-white/40"><i class="fab fa-python"></i><i class="fas fa-database"></i><i class="fab fa-docker"></i></div>
+                    </div>
+                    <div class="relative bg-[#141414]/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-1 group overflow-hidden"><div class="flex justify-between items-start mb-4"><div class="p-3 bg-white/5 rounded-lg"><i class="fas fa-code text-2xl text-orange-500"></i></div><div class="flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 border border-white/5"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span class="text-[10px] uppercase text-white/60 font-bold">online</span></div></div><h3 class="text-xl font-montserrat font-bold text-white mb-2">Financial Tracker</h3><p class="text-sm text-white/60 mb-6">App mobile para gestão financeira.</p><div class="flex gap-3 text-white/40"><i class="fab fa-react"></i><i class="fab fa-google"></i></div></div>
+                    <div class="relative bg-[#141414]/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-1 group overflow-hidden"><div class="flex justify-between items-start mb-4"><div class="p-3 bg-white/5 rounded-lg"><i class="fas fa-code text-2xl text-orange-500"></i></div><div class="flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 border border-white/5"><span class="w-2 h-2 rounded-full bg-gray-500"></span><span class="text-[10px] uppercase text-white/60 font-bold">archived</span></div></div><h3 class="text-xl font-montserrat font-bold text-white mb-2">RPG Campaign Manager</h3><p class="text-sm text-white/60 mb-6">Sistema para mestres de D&D.</p><div class="flex gap-3 text-white/40"><i class="fab fa-js"></i><i class="fab fa-html5"></i></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="template-sobre" class="hidden">
+            <div class="flex flex-col items-center justify-center p-10 text-center max-w-3xl mx-auto mt-10">
+                <div class="w-32 h-32 bg-gray-700 rounded-full mb-6 border-4 border-white/10 flex items-center justify-center text-4xl"><i class="fas fa-user-astronaut"></i></div>
+                <h2 class="text-3xl font-bold mb-4 font-montserrat">Thargon / Gustavo</h2>
+                <p class="text-white/70 leading-relaxed font-inter">
+                    Sou estudante de ADS no IFMT, 5º período. Focado em Backend (Python/Django/FastAPI) e Mobile (React Native). 
+                    Minha paixão é unir tecnologia e criatividade, seja criando dashboards de IoT para minha casa inteligente ou 
+                    mestrando campanhas de RPG épicas. 
+                </p>
+                <div class="grid grid-cols-2 gap-4 mt-8 w-full">
+                    <div class="bg-white/5 p-4 rounded-xl border border-white/10"><h3 class="font-bold text-cyan-400">Skills</h3><p class="text-sm text-white/60">React, Python, SQL</p></div>
+                    <div class="bg-white/5 p-4 rounded-xl border border-white/10"><h3 class="font-bold text-purple-400">Hobbies</h3><p class="text-sm text-white/60">D&D, Smart Home, Games</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="template-curriculo" class="hidden">
+            <div class="flex flex-col items-center justify-center h-full">
+                <i class="far fa-file-pdf text-6xl text-red-500 mb-4"></i>
+                <h2 class="text-2xl font-bold mb-2">Visualizador de PDF</h2>
+                <p class="text-white/50 mb-6">Aqui seria renderizado o PDF do currículo.</p>
+                <button class="px-6 py-2 bg-white text-black font-bold rounded-full hover:scale-105 transition-transform">Baixar PDF</button>
+            </div>
+        </div>
+
+        <div id="source-v1-header" class="hidden"><div class="relative w-full my-5 flex flex-col items-center"><h1 class="font-alfa text-main text-6xl uppercase">ANALIST</h1><div class="flex items-center justify-center w-full my-3"><span class="font-alfa text-main text-2xl tracking-[10px]">A N D</span></div><h1 class="font-alfa text-main text-6xl uppercase">DEVELOPER</h1></div></div>
+        <div id="source-v2-header" class="hidden"><div class="flex flex-col items-center justify-center"><div class="text-white/60 font-semibold uppercase tracking-[3px] text-sm mb-10">OLÁ, SOU GUSTAVO</div><h1 class="font-montserrat font-black text-main text-8xl">ANALIST</h1></div></div>
+
+        <section id="page-chaos" class="page-section hidden-page h-full w-full overflow-y-auto flex flex-col p-8 gap-8 items-center justify-start"></section>
+
+        <div id="nav-pill" class="hidden fixed bottom-8 right-8 bg-black/30 backdrop-blur-md px-6 py-3 rounded-full flex items-center gap-4 text-white shadow-xl z-[10000] border border-white/10 pointer-events-auto">
+            <button onclick="resetDice()" class="hover:text-cyan-400 text-xs mr-2 font-bold uppercase tracking-wider flex gap-2 items-center" title="Reroll"><i class="fas fa-dice"></i> Rolar Novamente</button>
+            <span id="version-label" class="font-inter font-bold text-sm min-w-[120px] text-center">Chaos Mode</span>
+        </div>
+
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

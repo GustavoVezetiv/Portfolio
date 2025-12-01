@@ -1,0 +1,170 @@
+/* ARQUIVO: style.css */
+
+/* --- FONTES --- */
+.font-alfa { font-family: 'Alfa Slab One', cursive; }
+.font-roboto { font-family: 'Roboto', sans-serif; }
+.font-montserrat { font-family: 'Montserrat', sans-serif; }
+.font-inter { font-family: 'Inter', sans-serif; }
+.font-mono { font-family: 'Fira Code', monospace; } 
+.font-pixel { font-family: 'Press Start 2P', cursive; } 
+.text-main { color: #0c0c0c; }
+
+/* --- UTILITÁRIOS GERAIS --- */
+.animate-fadeIn { animation: fadeIn 0.5s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.hidden-page { display: none !important; }
+
+/* --- DRAG MARQUEE (Certificados) --- */
+.marquee-container { overflow: hidden; position: relative; cursor: grab; touch-action: pan-y; }
+.marquee-container:active { cursor: grabbing; }
+.marquee-content { display: flex; gap: 1rem; width: max-content; will-change: transform; }
+
+/* --- ESTILOS DO DADO (SEMPRE BONITOS) --- */
+#destiny-dice-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px; 
+    z-index: 9999;
+    filter: drop-shadow(0 0 15px rgba(124, 58, 237, 0.5));
+    cursor: pointer;
+    transition: transform 0.3s, opacity 0.5s;
+}
+#destiny-dice-container:hover {
+    transform: scale(1.1) rotate(15deg);
+}
+.rolling {
+    animation: rollDice 0.6s ease-in-out infinite;
+}
+@keyframes rollDice {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(90deg) scale(0.9); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    75% { transform: rotate(270deg) scale(0.9); }
+    100% { transform: rotate(360deg); }
+}
+
+.dice-tooltip {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: #1a1b26;
+    color: #a9b1d6;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-family: 'Fira Code', monospace;
+    font-size: 10px;
+    white-space: nowrap;
+    border: 1px solid #7aa2f7;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+#destiny-dice-container:hover .dice-tooltip { opacity: 1; }
+
+/* --- MODO "FEIO" --- */
+#ugly-overlay {
+    position: fixed;
+    inset: 0;
+    background: white;
+    color: black;
+    font-family: "Times New Roman", Times, serif;
+    z-index: 5000;
+    padding: 2rem;
+    overflow-y: auto;
+    line-height: 1.5;
+    transition: opacity 1s;
+}
+#ugly-overlay h1 { font-size: 2em; font-weight: bold; margin-bottom: 1rem; }
+#ugly-overlay p { margin-bottom: 1rem; }
+#ugly-overlay ul { list-style: disc; padding-left: 2rem; margin-bottom: 1rem; }
+#ugly-overlay a { color: blue; text-decoration: underline; cursor: pointer; }
+
+/* --- CRITICAL HIT --- */
+.critical-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    animation: fadeOutCrit 2.5s forwards;
+    animation-delay: 1.5s;
+}
+@keyframes fadeOutCrit { to { opacity: 0; visibility: hidden; } }
+
+.crit-text {
+    font-family: 'Alfa Slab One', cursive;
+    font-size: 4rem;
+    color: #fbbf24;
+    text-shadow: 0 0 20px #fbbf24;
+    animation: scaleUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: center;
+}
+@keyframes scaleUp { from { transform: scale(0); } to { transform: scale(1); } }
+
+/* --- V3 SPECIFIC STYLES --- */
+.dock-container {
+    transition: all 0.3s ease;
+}
+.dock-item {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.dock-item:hover {
+    transform: translateY(-10px) scale(1.2);
+    margin: 0 10px;
+}
+/* App Window Animation */
+.app-window {
+    animation: zoomIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+@keyframes zoomIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* --- ESTILOS "FEIOS" & CAOS (ATUALIZADO) --- */
+
+#page-chaos {
+    background-color: #050505;
+    background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+    /* Noise mais agressivo */
+    background-blend-mode: hard-light;
+    background-size: 150px;
+    /* Bloqueia interação com o conteúdo */
+    pointer-events: none;
+    user-select: none;
+    /* Filtro global de ruído */
+    filter: contrast(1.5) brightness(0.8);
+}
+
+/* Mata todas as animações internas e interações no modo Chaos */
+#page-chaos * {
+    animation: none !important;
+    transition: none !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+}
+
+/* Exceção: O efeito de glitch em si deve rodar (é um "defeito", não uma feature) */
+@keyframes chaos-flicker {
+    0% { opacity: 1; filter: hue-rotate(0deg); }
+    5% { opacity: 0.4; filter: hue-rotate(90deg); transform: skewX(10deg); }
+    10% { opacity: 1; filter: hue-rotate(0deg); transform: skewX(0deg); }
+    100% { opacity: 1; }
+}
+
+/* Classe para aplicar o efeito feio nos elementos */
+.chaos-ugly-effect {
+    /* Força a animação de defeito mesmo com a regra global de no-animation */
+    animation: chaos-flicker 0.2s infinite alternate-reverse !important;
+    border: 2px dashed #ff0000;
+    background-color: rgba(50, 0, 0, 0.8);
+    opacity: 0.8;
+}
+
+.chaos-filter-1 { filter: hue-rotate(90deg) blur(2px); }
+.chaos-filter-2 { filter: invert(1) grayscale(1) contrast(5); }
+.chaos-filter-3 { filter: sepia(1) saturate(10) brightness(0.5); }
