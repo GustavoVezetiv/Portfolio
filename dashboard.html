@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vezetiv - Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Roboto:wght@300;400;700&family=Montserrat:wght@400;700;900&family=Inter:wght@300;400;600&family=Fira+Code:wght@400;600&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+
+    <link rel="icon" href="img/Group 266.svg">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-[#6C8491] h-screen w-full overflow-hidden text-white select-none">
+
+    <main class="w-full h-full relative">
+
+        <section class="page-section h-full w-full flex flex-col items-center justify-center font-inter bg-[#6C8491] relative">
+
+            <div id="v3-hero"
+                class="flex-1 flex flex-col justify-center items-center mb-24 animate-fadeIn transition-all duration-500">
+                <h1
+                    class="font-montserrat font-black text-main text-[clamp(3rem,10vw,8rem)] leading-[0.9] uppercase tracking-tighter mix-blend-overlay">
+                    GUSTAVO</h1>
+                <p class="font-inter text-xl tracking-[4px] text-white/90 mt-4 uppercase drop-shadow-md">Full Stack
+                    Developer</p>
+                <div class="mt-2 flex gap-2">
+                    <span
+                        class="px-2 py-1 bg-white/10 rounded text-[10px] uppercase tracking-widest border border-white/20">Lv.
+                        21</span>
+                    <span
+                        class="px-2 py-1 bg-white/10 rounded text-[10px] uppercase tracking-widest border border-white/20">Cuiabá-MT</span>
+                </div>
+            </div>
+
+            <div id="v3-app-window" class="hidden absolute inset-0 z-40 flex items-center justify-center p-4 md:p-10 backdrop-blur-md bg-black/40 app-window">
+                <div id="v3-app-content"
+                    class="w-full h-full max-w-6xl bg-[#0f1014] rounded-3xl border border-white/10 shadow-2xl overflow-hidden relative flex flex-col">
+                    <div
+                        class="h-12 bg-white/5 border-b border-white/5 flex items-center px-4 justify-between shrink-0">
+                        <div class="flex gap-2">
+                            <div onclick="goBack()"
+                                class="w-3 h-3 rounded-full bg-red-500 hover:bg-red-400 cursor-pointer"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <span id="v3-app-title" class="text-xs font-bold text-white/50 uppercase tracking-widest">Perfect Interface</span>
+                        <div class="w-10"></div>
+                    </div>
+                    <div id="v3-app-body" class="flex-1 overflow-y-auto overflow-x-hidden p-6 relative">
+                        <!-- Conteúdo será preenchido aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="source-dock" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 w-auto max-w-[95vw]">
+                <div
+                    class="dock-container flex items-end gap-3 p-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl">
+
+                    <a href="https://linkedin.com" target="_blank"
+                        class="dock-item group relative w-12 h-12 bg-white/10 rounded-xl flex justify-center items-center text-white/90 text-2xl border border-white/5 cursor-pointer shadow-lg">
+                        <i class="fab fa-linkedin-in"></i>
+                        <span
+                            class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">LinkedIn</span>
+                    </a>
+
+                    <a href="https://instagram.com" target="_blank"
+                        class="dock-item group relative w-12 h-12 bg-white/10 rounded-xl flex justify-center items-center text-white/90 text-2xl border border-white/5 cursor-pointer shadow-lg">
+                        <i class="fab fa-instagram"></i>
+                        <span
+                            class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Instagram</span>
+                    </a>
+
+                    <a href="https://github.com" target="_blank"
+                        class="dock-item group relative w-12 h-12 bg-white/10 rounded-xl flex justify-center items-center text-white/90 text-2xl border border-white/5 cursor-pointer shadow-lg">
+                        <i class="fab fa-github"></i>
+                        <span
+                            class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">GitHub</span>
+                    </a>
+
+                    <div class="w-[1px] h-8 bg-white/20 mx-1 self-center"></div>
+
+                    <div onclick="loadApp('certificados')"
+                        class="dock-item group relative w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex justify-center items-center text-white text-2xl border border-white/20 cursor-pointer shadow-lg">
+                        <i class="fas fa-certificate"></i>
+                        <span
+                            class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Certificados</span>
+                    </div>
+
+                    <div onclick="loadApp('projetos')"
+                        class="dock-item group relative w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex justify-center items-center text-white text-2xl border border-white/20 cursor-pointer shadow-lg">
+                        <i class="fas fa-code"></i>
+                        <span
+                            class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Projetos</span>
+                    </div>
+
+                    <div onclick="loadApp('curriculo')"
+                        class="dock-item group relative w-12 h-12 bg-white/10 rounded-xl flex justify-center items-center text-white/90 text-2xl border border-white/5 cursor-pointer shadow-lg">
+                        <i class="far fa-file-pdf"></i>
+                        <span
+                            class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Currículo</span>
+                    </div>
+
+                    <div class="w-[1px] h-8 bg-white/20 mx-1 self-center"></div>
+
+                    <div onclick="loadApp('sobre')"
+                        class="dock-item group relative w-12 h-12 bg-white/10 rounded-xl flex justify-center items-center text-white/90 text-2xl border border-white/5 cursor-pointer shadow-lg">
+                        <i class="far fa-user"></i>
+                        <span
+                            class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Sobre
+                            Mim</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+       --- TEMPLATE CARROCEL CERTIFICADOS DE CURSOS  ---
+<div id="template-certificados" class="hidden">
+            <div class="text-center mb-10 mt-10">
+                <h2 class="font-montserrat text-3xl font-extrabold text-white">Certificações</h2>
+                <p class="text-white/50 text-sm mt-2">Tecnologia, Dados & Segurança</p>
+            </div>
+            
+            <div class="mb-8">
+                <h3 class="text-white font-montserrat font-bold text-sm mb-4 pl-4 border-l-4 border-blue-500 ml-2 uppercase">Dev & Dados</h3>
+                <div class="marquee-container w-full" id="marquee-cert-1">
+                    <div class="marquee-content">
+                        <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                            <div class="h-[60%] w-full bg-gradient-to-br from-blue-600 to-indigo-800 flex items-center justify-center"><i class="fa-brands fa-python text-4xl text-white"></i></div>
+                            <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Python P/ Dados</h3><p class="text-gray-400 text-[10px] mt-1">Data Science Academy</p></div>
+                        </div>
+                        <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                            <div class="h-[60%] w-full bg-gradient-to-br from-green-600 to-emerald-900 flex items-center justify-center"><i class="fas fa-server text-4xl text-white"></i></div>
+                            <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Web com Django</h3><p class="text-gray-400 text-[10px] mt-1">Udemy / Prático</p></div>
+                        </div>
+                        <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                            <div class="h-[60%] w-full bg-gradient-to-br from-yellow-500 to-orange-600 flex items-center justify-center"><i class="fas fa-chart-column text-4xl text-white"></i></div>
+                            <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Power BI</h3><p class="text-gray-400 text-[10px] mt-1">Data Science Academy</p></div>
+                        </div>
+                        <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                            <div class="h-[60%] w-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center"><i class="fas fa-cloud text-4xl text-white"></i></div>
+                            <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">APIs RESTful</h3><p class="text-gray-400 text-[10px] mt-1">Django Framework</p></div>
+                        </div>
+                        <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                            <div class="h-[60%] w-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
+                                <i class="fas fa-people-group text-4xl text-white"></i>
+                            </div>
+                            <div class="h-[40%] p-3 flex flex-col justify-center">
+                                <h3 class="text-white text-xs font-bold">Scrum SFC™</h3>
+                                <p class="text-gray-400 text-[10px] mt-1">SCRUMstudy</p>
+                            </div>
+                        </div>
+
+                        <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                            <div class="h-[60%] w-full bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center">
+                                <i class="fas fa-lock text-4xl text-white"></i>
+                            </div>
+                            <div class="h-[40%] p-3 flex flex-col justify-center">
+                                <h3 class="text-white text-xs font-bold">Segurança TI</h3>
+                                <p class="text-gray-400 text-[10px] mt-1">Fundação Bradesco</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-white font-montserrat font-bold text-sm mb-4 pl-4 border-l-4 border-purple-500 ml-2 uppercase">Infra & Enterprise</h3>
+                <div class="marquee-container w-full" id="marquee-cert-2">
+                    <div class="marquee-content">
+                        <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                            <div class="h-[60%] w-full bg-gradient-to-br from-blue-400 to-cyan-600 flex items-center justify-center"><i class="fa-brands fa-microsoft text-4xl text-white"></i></div>
+                            <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Dynamics 365</h3><p class="text-gray-400 text-[10px] mt-1">Microsoft / DSA</p></div>
+                        </div>
+                        <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                            <div class="h-[60%] w-full bg-gradient-to-br from-red-600 to-red-900 flex items-center justify-center"><i class="fas fa-user-shield text-4xl text-white"></i></div>
+                            <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Segurança Dados</h3><p class="text-gray-400 text-[10px] mt-1">Fundação Bradesco</p></div>
+                        </div>
+                        <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                            <div class="h-[60%] w-full bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center"><i class="fas fa-robot text-4xl text-white"></i></div>
+                            <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Automação IA</h3><p class="text-gray-400 text-[10px] mt-1">Docker + N8N</p></div>
+                        </div>
+                        <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                            <div class="h-[60%] w-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
+                                <i class="fas fa-people-group text-4xl text-white"></i>
+                            </div>
+                            <div class="h-[40%] p-3 flex flex-col justify-center">
+                                <h3 class="text-white text-xs font-bold">Scrum SFC™</h3>
+                                <p class="text-gray-400 text-[10px] mt-1">SCRUMstudy</p>
+                            </div>
+                        </div>
+
+                        <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                            <div class="h-[60%] w-full bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center">
+                                <i class="fas fa-lock text-4xl text-white"></i>
+                            </div>
+                            <div class="h-[40%] p-3 flex flex-col justify-center">
+                                <h3 class="text-white text-xs font-bold">Segurança TI</h3>
+                                <p class="text-gray-400 text-[10px] mt-1">Fundação Bradesco</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        --- TEMPLATE DE PROJETOS FEITOS ---
+        <div id="template-projetos" class="hidden">
+            <div class="pt-10 px-4">
+                <div class="flex justify-between items-end mb-8 border-b border-white/10 pb-4">
+                    <div>
+                        <h2 class="font-montserrat text-4xl font-black text-white mb-1 tracking-tighter">PROJETOS</h2>
+                        <p class="text-white/50 text-xs font-inter tracking-widest uppercase">Code • Deploy • Innovation</p>
+                    </div>
+                    <div class="flex gap-2"><span class="px-3 py-1 rounded-full bg-white/5 text-[10px] text-white/60 border border-white/10">Full Stack</span></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-20">
+                    
+                    <div class="relative bg-[#141414]/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-blue-500/50 transition-all duration-300 hover:-translate-y-1 group overflow-hidden">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-white/5 rounded-lg"><i class="fas fa-city text-2xl text-blue-500"></i></div>
+                            <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 border border-white/5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span class="text-[10px] uppercase text-white/60 font-bold">Dev</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-montserrat font-bold text-white mb-2">Real Estate Manager</h3>
+                        <p class="text-sm text-white/60 mb-6">Sistema completo de gestão de imóveis, contratos e agendamentos.</p>
+                        <div class="flex gap-3 text-white/40"><i class="fab fa-python" title="Python"></i><i class="fas fa-database" title="PostgreSQL"></i><i class="fab fa-docker" title="Docker"></i></div>
+                    </div>
+
+                    <div class="relative bg-[#141414]/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-1 group overflow-hidden">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-white/5 rounded-lg"><i class="fas fa-mobile-alt text-2xl text-cyan-500"></i></div>
+                            <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 border border-white/5">
+                                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span><span class="text-[10px] uppercase text-white/60 font-bold">APK</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-montserrat font-bold text-white mb-2">Links App Mobile</h3>
+                        <p class="text-sm text-white/60 mb-6">App para gestão de links e QR Codes com categorização inteligente.</p>
+                        <div class="flex gap-3 text-white/40"><i class="fab fa-react" title="React Native"></i><i class="fab fa-js" title="TypeScript"></i></div>
+                    </div>
+
+                    <div class="relative bg-[#141414]/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-pink-500/50 transition-all duration-300 hover:-translate-y-1 group overflow-hidden">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-white/5 rounded-lg"><i class="fas fa-robot text-2xl text-pink-500"></i></div>
+                            <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 border border-white/5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span class="text-[10px] uppercase text-white/60 font-bold">Online</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-montserrat font-bold text-white mb-2">Automated AI Poster</h3>
+                        <p class="text-sm text-white/60 mb-6">Bot que analisa trends e cria posts no LinkedIn usando N8N e IA.</p>
+                        <div class="flex gap-3 text-white/40"><i class="fas fa-project-diagram" title="N8N"></i><i class="fab fa-docker" title="Docker"></i><i class="fab fa-python" title="Python"></i></div>
+                    </div>
+
+                    <div class="relative bg-[#141414]/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-1 group overflow-hidden">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-white/5 rounded-lg"><i class="fas fa-book text-2xl text-purple-500"></i></div>
+                            <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 border border-white/5">
+                                <span class="w-2 h-2 rounded-full bg-gray-500"></span><span class="text-[10px] uppercase text-white/60 font-bold">Archived</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-montserrat font-bold text-white mb-2">Library Manager</h3>
+                        <p class="text-sm text-white/60 mb-6">Sistema clássico de gestão de acervo e empréstimos.</p>
+                        <div class="flex gap-3 text-white/40"><i class="fab fa-php" title="PHP"></i><i class="fas fa-database" title="MySQL"></i></div>
+                    </div>
+
+                    <div class="relative bg-[#141414]/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-green-500/50 transition-all duration-300 hover:-translate-y-1 group overflow-hidden">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-white/5 rounded-lg"><i class="fas fa-car text-2xl text-green-500"></i></div>
+                            <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 border border-white/5">
+                                <span class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></span><span class="text-[10px] uppercase text-white/60 font-bold">Refactor</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-montserrat font-bold text-white mb-2">Driving School System</h3>
+                        <p class="text-sm text-white/60 mb-6">Sistema com controle de permissões (RBAC) para Instrutores, Alunos e Gerentes.</p>
+                        <div class="flex gap-3 text-white/40"><i class="fab fa-python" title="Django"></i><i class="fas fa-users-gear" title="Gestão de Usuários"></i><i class="fas fa-database" title="SQL"></i></div>
+                    </div>
+
+                    <div class="relative bg-[#141414]/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-1 group overflow-hidden">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-white/5 rounded-lg"><i class="fas fa-brain text-2xl text-purple-500"></i></div>
+                            <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 border border-white/5">
+                                <span class="w-2 h-2 rounded-full bg-gray-500"></span><span class="text-[10px] uppercase text-white/60 font-bold">Study</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-montserrat font-bold text-white mb-2">ML Data Classifier</h3>
+                        <p class="text-sm text-white/60 mb-6">Modelo supervisionado com Scikit-learn para classificação e análise preditiva de notas falsas.</p>
+                        <div class="flex gap-3 text-white/40"><i class="fab fa-python" title="Python"></i><i class="fas fa-chart-line" title="Scikit-Learn"></i><i class="fas fa-microchip" title="IA"></i></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="template-sobre" class="hidden">
+            <div class="flex flex-col items-center justify-center p-10 text-center max-w-3xl mx-auto mt-10">
+                <div
+                    class="w-32 h-32 bg-gray-700 rounded-full mb-6 border-4 border-white/10 flex items-center justify-center text-4xl">
+                    <i class="fas fa-user-astronaut"></i>
+                </div>
+                <h2 class="text-3xl font-bold mb-4 font-montserrat"> Gustavo Vezetiv</h2>
+                <p class="text-white/70 leading-relaxed font-inter">
+                    Sou estudante de TADS no IFMT, 6º período. Focado em Backend (Python/Django/FastAPI) e Mobile (React
+                    Native).
+                    Minha paixão é unir tecnologia e criatividade, seja criando dashboards de IoT para minha casa
+                    inteligente ou
+                    mestrando campanhas de RPG épicas.
+                    Alem disso, sou fascinado por musica e animações.
+                </p>
+                <div class="grid grid-cols-2 gap-4 mt-8 w-full">
+                    <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                        <h3 class="font-bold text-cyan-400">Skills</h3>
+                        <p class="text-sm text-white/60">React, Python, Django, SQL, Docker, Git, HTML, CSS, JS, Figma
+                        </p>
+                    </div>
+                    <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                        <h3 class="font-bold text-purple-400">Hobbies</h3>
+                        <p class="text-sm text-white/60">D&D, Smart Home, Games, Musica, Animações, QA, Trilhas e
+                            Exploração</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="template-curriculo" class="hidden">
+            <div class="flex flex-col items-center justify-center h-full">
+                <i class="far fa-file-pdf text-6xl text-red-500 mb-4"></i>
+                <h2 class="text-2xl font-bold mb-2">Visualizador de PDF</h2>
+                <p class="text-white/50 mb-6">Aqui seria renderizado o PDF do currículo.</p>
+
+                <a href="arc/Curriculo 2025.pdf" download="Curriculo 2025.pdf"
+                    class="px-6 py-2 bg-white text-black font-bold rounded-full hover:scale-105 transition-transform cursor-pointer">
+                    Baixar PDF
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Verifica se o token de acesso está definido
+        if (!sessionStorage.getItem('acessoPermitido')) {
+            window.location.href = "index.html";
+        }
+
+        let currentOpenApp = null;
+
+        function loadApp(appId) {
+            const windowEl = document.getElementById('v3-app-window');
+            const bodyEl = document.getElementById('v3-app-body');
+            const titleEl = document.getElementById('v3-app-title');
+            const heroEl = document.getElementById('v3-hero');
+
+            if (!windowEl.classList.contains('hidden') && currentOpenApp === appId) {
+                closeApp();
+                return;
+            }
+            currentOpenApp = appId;
+
+            heroEl.style.opacity = '0';
+            heroEl.style.transform = 'scale(0.9)';
+
+            const templateId = `template-${appId}`;
+            const templateElement = document.getElementById(templateId);
+
+            if (templateElement) {
+                bodyEl.innerHTML = "";
+                const clonedTemplate = templateElement.cloneNode(true);
+                clonedTemplate.classList.remove('hidden');
+                bodyEl.appendChild(clonedTemplate);
+
+                let title = "App";
+                if (appId === 'projetos') title = "Projetos.exe";
+                if (appId === 'certificados') title = "Certificados.app";
+                if (appId === 'sobre') title = "Bio.txt";
+                if (appId === 'curriculo') title = "Curriculo.pdf";
+                titleEl.innerText = title;
+
+                windowEl.classList.remove('hidden');
+
+                if (appId === 'certificados') {
+                    setTimeout(() => {
+                        const marquees = bodyEl.querySelectorAll('.marquee-container');
+                        marquees.forEach(marquee => createDraggableMarquee(marquee, -0.5));
+                    }, 100);
+                }
+            }
+        }
+
+        function closeApp() {
+            const windowEl = document.getElementById('v3-app-window');
+            const heroEl = document.getElementById('v3-hero');
+            if (windowEl) windowEl.classList.add('hidden');
+            if (heroEl) {
+                heroEl.style.opacity = '1';
+                heroEl.style.transform = 'scale(1)';
+            }
+            currentOpenApp = null;
+        }
+
+        function goBack() {
+            sessionStorage.removeItem('acessoPermitido');
+            window.location.href = "index.html";
+        }
+
+        function createDraggableMarquee(container, initialSpeed) {
+            if (!container) return;
+            const content = container.querySelector('.marquee-content');
+            if (!content) return;
+
+            const items = Array.from(content.children);
+            if (items.length === 0) return;
+            items.forEach(child => content.appendChild(child.cloneNode(true)));
+
+            let xPos = 0;
+            let isDragging = false;
+            let startX = 0;
+            let lastX = 0;
+
+            function animate() {
+                if (!document.body.contains(container)) return;
+                if (!isDragging) xPos += initialSpeed;
+
+                if (Math.abs(xPos) >= content.scrollWidth / 2) xPos = 0;
+
+                content.style.transform = `translate3d(${xPos}px, 0, 0)`;
+                requestAnimationFrame(animate);
+            }
+
+            container.addEventListener('mousedown', e => {
+                isDragging = true;
+                lastX = e.clientX;
+                container.style.cursor = 'grabbing';
+            });
+            window.addEventListener('mousemove', e => {
+                if (isDragging) {
+                    const delta = e.clientX - lastX;
+                    xPos += delta * 1.5;
+                    lastX = e.clientX;
+                }
+            });
+            window.addEventListener('mouseup', () => {
+                isDragging = false;
+                container.style.cursor = 'grab';
+            });
+
+            requestAnimationFrame(animate);
+        }
+    </script>
+</body>
+
+</html>
