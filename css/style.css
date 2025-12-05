@@ -116,6 +116,21 @@
     transform: translateY(-10px) scale(1.2);
     margin: 0 10px;
 }
+
+@media (max-width: 768px) {
+    .dock-item {
+        width: 10rem;
+        height: 3rem;
+        font-size: 1.25rem;
+    }
+    .dock-item:hover {
+        transform: translateY(-5px) scale(1.1);
+        margin: 0 5px;
+    }
+    #source-dock {
+        max-width: 90vw;
+    }
+}
 /* App Window Animation */
 .app-window {
     animation: zoomIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);

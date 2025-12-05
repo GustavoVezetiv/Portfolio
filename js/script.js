@@ -26,6 +26,7 @@ function rollDestiny() {
     
     setTimeout(() => {
         d20Icon.classList.remove('rolling');
+        d20Icon.style.transform = 'rotate(0deg) scale(1)';
         let roll;
         
         // Rigged Logic
@@ -162,9 +163,15 @@ function createDraggableMarquee(container, initialSpeed) {
         requestAnimationFrame(animate);
     }
 
+    // Mouse events
     container.addEventListener('mousedown', e => { isDragging = true; lastX = e.clientX; container.style.cursor = 'grabbing'; });
     window.addEventListener('mousemove', e => { if(isDragging) { const delta = e.clientX - lastX; xPos += delta * 1.5; lastX = e.clientX; }});
     window.addEventListener('mouseup', () => { isDragging = false; container.style.cursor = 'grab'; });
+    
+    // Touch events (mobile)
+    container.addEventListener('touchstart', e => { isDragging = true; lastX = e.touches[0].clientX; });
+    window.addEventListener('touchmove', e => { if(isDragging) { const delta = e.touches[0].clientX - lastX; xPos += delta * 1.5; lastX = e.touches[0].clientX; }});
+    window.addEventListener('touchend', () => { isDragging = false; });
     
     requestAnimationFrame(animate);
 }
