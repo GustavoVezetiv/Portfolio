@@ -41,9 +41,9 @@
                 </div>
             </div>
 
-            <div id="v3-app-window" class="hidden absolute inset-0 z-40 flex items-center justify-center p-4 md:p-10 backdrop-blur-md bg-black/40 app-window">
+            <div id="v3-app-window" class="hidden absolute inset-0 z-40 flex items-center justify-center p-4 md:p-10 backdrop-blur-md bg-black/40 app-window" onclick="handleBackdropClick(event)">
                 <div id="v3-app-content"
-                    class="w-full h-full max-w-6xl bg-[#0f1014] rounded-3xl border border-white/10 shadow-2xl overflow-hidden relative flex flex-col">
+                    class="w-full h-full max-w-6xl bg-[#0f1014] rounded-3xl border border-white/10 shadow-2xl overflow-hidden relative flex flex-col" onclick="event.stopPropagation()">
                     <div
                         class="h-12 bg-white/5 border-b border-white/5 flex items-center px-4 justify-between shrink-0">
                         <div class="flex gap-2">
@@ -65,21 +65,21 @@
                 <div
                     class="dock-container flex items-end gap-3 p-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl">
 
-                    <a href="https://linkedin.com" target="_blank"
+                    <a href="https://www.linkedin.com/in/gustavo-vezetiv-08416126b/" target="_blank"
                         class="dock-item group relative w-12 h-12 bg-white/10 rounded-xl flex justify-center items-center text-white/90 text-2xl border border-white/5 cursor-pointer shadow-lg">
                         <i class="fab fa-linkedin-in"></i>
                         <span
                             class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">LinkedIn</span>
                     </a>
 
-                    <a href="https://instagram.com" target="_blank"
+                    <a href="https://www.instagram.com/vezeti_v/" target="_blank"
                         class="dock-item group relative w-12 h-12 bg-white/10 rounded-xl flex justify-center items-center text-white/90 text-2xl border border-white/5 cursor-pointer shadow-lg">
                         <i class="fab fa-instagram"></i>
                         <span
                             class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Instagram</span>
                     </a>
 
-                    <a href="https://github.com" target="_blank"
+                    <a href="https://github.com/GustavoVezetiv" target="_blank"
                         class="dock-item group relative w-12 h-12 bg-white/10 rounded-xl flex justify-center items-center text-white/90 text-2xl border border-white/5 cursor-pointer shadow-lg">
                         <i class="fab fa-github"></i>
                         <span
@@ -123,8 +123,8 @@
             </div>
         </section>
 
-       --- TEMPLATE CARROCEL CERTIFICADOS DE CURSOS  ---
-<div id="template-certificados" class="hidden">
+<!--        --- TEMPLATE CARROCEL CERTIFICADOS DE CURSOS  ---
+ --><div id="template-certificados" class="hidden">
             <div class="text-center mb-10 mt-10">
                 <h2 class="font-montserrat text-3xl font-extrabold text-white">Certificações</h2>
                 <p class="text-white/50 text-sm mt-2">Tecnologia, Dados & Segurança</p>
@@ -214,8 +214,8 @@
             </div>
         </div>
 
-        --- TEMPLATE DE PROJETOS FEITOS ---
-        <div id="template-projetos" class="hidden">
+<!--         --- TEMPLATE DE PROJETOS FEITOS ---
+ -->        <div id="template-projetos" class="hidden">
             <div class="pt-10 px-4">
                 <div class="flex justify-between items-end mb-8 border-b border-white/10 pb-4">
                     <div>
@@ -337,9 +337,9 @@
             <div class="flex flex-col items-center justify-center h-full">
                 <i class="far fa-file-pdf text-6xl text-red-500 mb-4"></i>
                 <h2 class="text-2xl font-bold mb-2">Visualizador de PDF</h2>
-                <p class="text-white/50 mb-6">Aqui seria renderizado o PDF do currículo.</p>
+                <p class="text-white/50 mb-6">Clique aqui para vizualizar em PDF o currículo.</p>
 
-                <a href="arc/Curriculo 2025.pdf" download="Curriculo 2025.pdf"
+                <a href="arc/Curriculo 2025.pdf" download="Curriculo 2025.pdf" target="_blank"
                     class="px-6 py-2 bg-white text-black font-bold rounded-full hover:scale-105 transition-transform cursor-pointer">
                     Baixar PDF
                 </a>
@@ -407,6 +407,13 @@
                 heroEl.style.transform = 'scale(1)';
             }
             currentOpenApp = null;
+        }
+
+        function handleBackdropClick(event) {
+            // Fecha a modal se clicar fora (no backdrop)
+            if (event.target.id === 'v3-app-window') {
+                closeApp();
+            }
         }
 
         function goBack() {

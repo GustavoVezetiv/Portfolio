@@ -73,8 +73,9 @@ function triggerChaosMode(roll) {
     uglyOverlay.style.opacity = "0";
     setTimeout(() => uglyOverlay.style.display = "none", 1500);
     
-    diceContainer.style.opacity = '0';
-    setTimeout(() => diceContainer.style.display = 'none', 500);
+    // Mantém o dado visível, apenas deixa transparente
+    diceContainer.style.opacity = '1';
+    diceContainer.style.display = 'block';
 
     appRoot.classList.remove('hidden');
     document.getElementById('page-chaos').classList.remove('hidden-page');
