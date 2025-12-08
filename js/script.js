@@ -169,9 +169,24 @@ function createDraggableMarquee(container, initialSpeed) {
     window.addEventListener('mouseup', () => { isDragging = false; container.style.cursor = 'grab'; });
     
     // Touch events (mobile)
-    container.addEventListener('touchstart', e => { isDragging = true; lastX = e.touches[0].clientX; });
-    window.addEventListener('touchmove', e => { if(isDragging) { const delta = e.touches[0].clientX - lastX; xPos += delta * 1.5; lastX = e.touches[0].clientX; }});
-    window.addEventListener('touchend', () => { isDragging = false; });
+    container.addEventListener('touchstart', e => {
+        isDragging = true;
+        lastX = e.touches[0].clientX;
+        e.preventDefault();
+        e.stopPropagation();
+    });
+    window.addEventListener('touchmove', e => {
+        if(isDragging) {
+            e.preventDefault();
+            e.stopPropagation();
+            const delta = e.touches[0].clientX - lastX;
+            xPos += delta * 1.5;
+            lastX = e.touches[0].clientX;
+        }
+    }, { passive: false });
+    window.addEventListener('touchend', () => {
+        isDragging = false;
+    });
     
     requestAnimationFrame(animate);
 }

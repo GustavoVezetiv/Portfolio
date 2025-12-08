@@ -15,9 +15,9 @@
 .hidden-page { display: none !important; }
 
 /* --- DRAG MARQUEE (Certificados) --- */
-.marquee-container { overflow: hidden; position: relative; cursor: grab; touch-action: pan-y; }
+.marquee-container { overflow: hidden; position: relative; cursor: grab; touch-action: none; -webkit-user-select: none; user-select: none; }
 .marquee-container:active { cursor: grabbing; }
-.marquee-content { display: flex; gap: 1rem; width: max-content; will-change: transform; }
+.marquee-content { display: flex; gap: 1rem; width: max-content; will-change: transform; -webkit-user-drag: none; }
 
 /* --- ESTILOS DO DADO (SEMPRE BONITOS) --- */
 #destiny-dice-container {
@@ -183,3 +183,46 @@
 .chaos-filter-1 { filter: hue-rotate(90deg) blur(2px); }
 .chaos-filter-2 { filter: invert(1) grayscale(1) contrast(5); }
 .chaos-filter-3 { filter: sepia(1) saturate(10) brightness(0.5); }
+
+/* --- BIO EXPAND ANIMATION --- */
+#bio-expanded-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.8s ease-in-out,
+                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(-20px);
+}
+
+#bio-expanded-content:not(.hidden) {
+    max-height: 1000px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Botão com transição visual impactante */
+#bio-toggle-btn {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+#bio-toggle-btn:hover {
+    transform: translateY(-2px);
+    border-color: #06b6d4;
+    text-shadow: 0 0 8px rgba(6, 182, 212, 0.5);
+    box-shadow: 0 8px 16px rgba(6, 182, 212, 0.25),
+                inset 0 0 0 1px rgba(6, 182, 212, 0.3);
+}
+
+#bio-toggle-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(6, 182, 212, 0.15),
+                inset 0 0 0 1px rgba(6, 182, 212, 0.3);
+}
+
+/* Ícone com rotação */
+#bio-toggle-icon {
+    display: inline-block;
+}

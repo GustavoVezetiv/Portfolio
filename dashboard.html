@@ -474,14 +474,31 @@
                     <i class="fas fa-user-astronaut"></i>
                 </div>
                 <h2 class="text-3xl font-bold mb-4 font-montserrat"> Gustavo Vezetiv</h2>
-                <p class="text-white/70 leading-relaxed font-inter">
-                    Sou estudante de TADS no IFMT, 6º período. Focado em Backend (Python/Django/FastAPI) e Mobile (React
-                    Native).
-                    Minha paixão é unir tecnologia e criatividade, seja criando dashboards de IoT para minha casa
-                    inteligente ou
-                    mestrando campanhas de RPG épicas.
-                    Alem disso, sou fascinado por musica e animações.
-                </p>
+                
+                <!-- Resumo (sempre visível) -->
+                    <p class="text-white/70 leading-relaxed font-inter space-y-3 mb-2">
+                        Sou estudante de TADS no IFMT (6º período), com um pé e um dedo em cada parte da tecnologia. 
+                        Aventureiro, animado, desbravador da natureza e sempre procurando entender como as coisas funcionam.
+                    </p>
+
+                    <!-- Conteúdo completo (colapsado por padrão) -->
+                    <div id="bio-expanded-content" class="hidden text-white/70 leading-relaxed font-inter space-y-3 mb-2">
+                        
+                        <p>Ao longo das minhas experiências, aprendi a ter paciência, lidar com pessoas diferentes e perceber o quanto os detalhes fazem diferença. Trabalho bastante com Suporte, Documentação, Python, Power BI, automações e outras ferramentas que deixam tudo mais organizado e claro no dia a dia.</p>
+                        
+                        <p>Gosto de ajudar, colaborar e ouvir músicas no meio disso tudo. Valorizo ambientes onde existe respeito, espaço para crescer e incentivo à criatividade.</p>
+                        
+                        <p>A vida é uma eterna evolução, uma troca onde cada um contribui com o que sabe e faz de melhor naquele momento. Procuro hoje ser a minha melhor versão, e espero que possa contribuir para você ser a sua!</p>
+
+                    </div>
+
+
+                <!-- Botão Ler Mais/Menos -->
+                <button id="bio-toggle-btn" onclick="toggleBioExpand()" class="px-4 py-2 text-sm font-bold text-cyan-400 hover:text-cyan-300 transition-all border border-cyan-400/50 rounded-lg mb-4 hover:border-cyan-300 flex items-center gap-2 hover:shadow-lg hover:shadow-cyan-500/20">
+                    <span id="bio-toggle-text">Ler mais</span>
+                    <i id="bio-toggle-icon" class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+                </button>
+
                 <div class="grid grid-cols-2 gap-4 mt-8 w-full">
                     <div class="bg-white/5 p-4 rounded-xl border border-white/10">
                         <h3 class="font-bold text-cyan-400">Skills</h3>
@@ -609,6 +626,7 @@
                 requestAnimationFrame(animate);
             }
 
+            // Mouse events
             container.addEventListener('mousedown', e => {
                 isDragging = true;
                 lastX = e.clientX;
@@ -626,7 +644,45 @@
                 container.style.cursor = 'grab';
             });
 
+            // Touch events (mobile)
+            container.addEventListener('touchstart', e => {
+                isDragging = true;
+                lastX = e.touches[0].clientX;
+                e.preventDefault();
+                e.stopPropagation();
+            });
+            window.addEventListener('touchmove', e => {
+                if(isDragging) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const delta = e.touches[0].clientX - lastX;
+                    xPos += delta * 1.5;
+                    lastX = e.touches[0].clientX;
+                }
+            }, { passive: false });
+            window.addEventListener('touchend', () => {
+                isDragging = false;
+            });
+
             requestAnimationFrame(animate);
+        }
+
+        function toggleBioExpand() {
+            const expandedContent = document.getElementById('bio-expanded-content');
+            const toggleText = document.getElementById('bio-toggle-text');
+            const toggleIcon = document.getElementById('bio-toggle-icon');
+
+            if (expandedContent.classList.contains('hidden')) {
+                expandedContent.classList.remove('hidden');
+                toggleText.textContent = 'Ler menos';
+                toggleIcon.classList.remove('fa-chevron-down');
+                toggleIcon.classList.add('fa-chevron-up');
+            } else {
+                expandedContent.classList.add('hidden');
+                toggleText.textContent = 'Ler mais';
+                toggleIcon.classList.remove('fa-chevron-up');
+                toggleIcon.classList.add('fa-chevron-down');
+            }
         }
     </script>
 </body>
