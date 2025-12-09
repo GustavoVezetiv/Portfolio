@@ -36,8 +36,7 @@
                 <h1
                     class="font-montserrat font-black text-main text-[clamp(3rem,10vw,8rem)] leading-[0.9] uppercase tracking-tighter">
                     GUSTAVO</h1>
-                <p class="font-inter text-xl tracking-[4px] text-white/90 mt-4 uppercase drop-shadow-md">Full Stack
-                    Developer</p>
+                <p class="font-inter text-xl tracking-[4px] text-white/90 mt-4 uppercase drop-shadow-md whitespace-nowrap">Full Stack Developer</p>
                 <div class="mt-2 flex gap-2">
                     <span
                         class="px-2 py-1 bg-white/10 rounded text-[10px] uppercase tracking-widest border border-white/20">Lv.
@@ -48,19 +47,19 @@
 
                 <!-- Redes Sociais abaixo do nome -->
                 <div class="flex gap-3 mt-6">
-                    <a href="https://linkedin.com/in/gustavovezetiv" target="_blank"
+                    <a href="javascript:void(0)" onclick="confirmRedirect('https://linkedin.com/in/gustavovezetiv')"
                         class="group relative w-10 h-10 bg-white/10 hover:bg-blue-600/30 rounded-lg flex justify-center items-center text-white/70 hover:text-white text-lg border border-white/10 cursor-pointer transition-all">
                         <i class="fab fa-linkedin-in"></i>
                         <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">LinkedIn</span>
                     </a>
 
-                    <a href="https://instagram.com/gustavovezetiv" target="_blank"
+                    <a href="javascript:void(0)" onclick="confirmRedirect('https://instagram.com/gustavovezetiv')"
                         class="group relative w-10 h-10 bg-white/10 hover:bg-pink-600/30 rounded-lg flex justify-center items-center text-white/70 hover:text-white text-lg border border-white/10 cursor-pointer transition-all">
                         <i class="fab fa-instagram"></i>
                         <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Instagram</span>
                     </a>
 
-                    <a href="https://github.com/gustavovezetiv" target="_blank"
+                    <a href="javascript:void(0)" onclick="confirmRedirect('https://github.com/gustavovezetiv')"
                         class="group relative w-10 h-10 bg-white/10 hover:bg-gray-700/30 rounded-lg flex justify-center items-center text-white/70 hover:text-white text-lg border border-white/10 cursor-pointer transition-all">
                         <i class="fab fa-github"></i>
                         <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">GitHub</span>
@@ -70,7 +69,7 @@
 
             <div id="v3-app-window" class="hidden absolute inset-0 z-40 flex items-center justify-center p-4 md:p-10 backdrop-blur-md bg-black/40 app-window pointer-events-none" onclick="handleBackdropClick(event)">
                 <div id="v3-app-content"
-                    class="w-full h-full max-w-6xl bg-[#0f1014] rounded-3xl border border-white/10 shadow-2xl overflow-hidden relative flex flex-col" onclick="event.stopPropagation()">
+                    class="w-full h-full sm:max-h-[85vh] md:h-full max-w-2xl sm:max-w-4xl md:max-w-6xl bg-[#0f1014] rounded-3xl border border-white/10 shadow-2xl overflow-hidden relative flex flex-col" onclick="event.stopPropagation()">
                     <div
                         class="h-12 bg-white/5 border-b border-white/5 flex items-center px-4 justify-between shrink-0">
                         <div class="flex gap-2">
@@ -151,52 +150,52 @@
         <div class="marquee-container w-full" id="marquee-cert-1">
             <div class="marquee-content">
                 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform cursor-pointer" onclick="openCertModal('Clean Code & SOLID')">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform cursor-pointer" onclick="openCertModal('Clean Code & SOLID')">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-code text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Clean Code & SOLID</h3><p class="text-gray-400 text-[10px] mt-1">Boas Práticas</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-database text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Estruturas de Dados</h3><p class="text-gray-400 text-[10px] mt-1">Fundamentos</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-brands fa-react text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">React / React Native</h3><p class="text-gray-400 text-[10px] mt-1">Web & Mobile</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-brands fa-docker text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Docker Avançado</h3><p class="text-gray-400 text-[10px] mt-1">Contêineres</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-diagram-project text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Arquitetura de Software</h3><p class="text-gray-400 text-[10px] mt-1">MVC, REST</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-vial text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Testes com Pytest</h3><p class="text-gray-400 text-[10px] mt-1">Unitário & TDD</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-blue-600 to-indigo-800 flex items-center justify-center"><i class="fa-brands fa-python text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Python P/ Dados</h3><p class="text-gray-400 text-[10px] mt-1">Data Science Academy</p></div>
                 </div>
                 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-green-600 to-emerald-900 flex items-center justify-center"><i class="fas fa-server text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Web com Django</h3><p class="text-gray-400 text-[10px] mt-1">Udemy / Prático</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center"><i class="fas fa-cloud text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">APIs RESTful</h3><p class="text-gray-400 text-[10px] mt-1">Django Framework</p></div>
                 </div>
                 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
                         <i class="fas fa-people-group text-4xl text-white"></i>
                     </div>
@@ -215,52 +214,52 @@
         <div class="marquee-container w-full" id="marquee-cert-3">
             <div class="marquee-content">
                 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-database text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">SQL & PostgreSQL</h3><p class="text-gray-400 text-[10px] mt-1">Consultas Avançadas</p></div>
                 </div>
                 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-robot text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Machine Learning</h3><p class="text-gray-400 text-[10px] mt-1">Modelos & Métricas</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-wand-magic-sparkles text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Prompt Engineering</h3><p class="text-gray-400 text-[10px] mt-1">IA Generativa</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-chart-simple text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Power BI Avançado</h3><p class="text-gray-400 text-[10px] mt-1">DAX & ETL</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-cloud text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">BigQuery (Google)</h3><p class="text-gray-400 text-[10px] mt-1">Cloud Analytics</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-database text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Data Warehouse</h3><p class="text-gray-400 text-[10px] mt-1">Modelagem ETL</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-yellow-500 to-orange-600 flex items-center justify-center"><i class="fas fa-chart-line text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Power BI P/ Análise</h3><p class="text-gray-400 text-[10px] mt-1">Fundação Bradesco</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center"><i class="fas fa-database text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Modelagem de Dados</h3><p class="text-gray-400 text-[10px] mt-1">Fundação Bradesco</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center"><i class="fas fa-brain text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Imersão em IA</h3><p class="text-gray-400 text-[10px] mt-1">Alura / Ebac</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center"><i class="fas fa-microchip text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">IA & Cultura Digital</h3><p class="text-gray-400 text-[10px] mt-1">Fundação Bradesco</p></div>
                 </div>
@@ -274,37 +273,37 @@
         <div class="marquee-container w-full" id="marquee-cert-2">
             <div class="marquee-content">
                 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-lock text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Cibersegurança</h3><p class="text-gray-400 text-[10px] mt-1">Ataques & Prevenção</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-network-wired text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Fundamentos de Redes</h3><p class="text-gray-400 text-[10px] mt-1">TCP/IP, VLANs</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-server text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Firewalls & VPN</h3><p class="text-gray-400 text-[10px] mt-1">PfSense, Mikrotik</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-user-shield text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">LGPD</h3><p class="text-gray-400 text-[10px] mt-1">Conformidade</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-terminal text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Hardening Linux</h3><p class="text-gray-400 text-[10px] mt-1">Segurança OS</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-cloud-arrow-up text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Cloud Fundamentals</h3><p class="text-gray-400 text-[10px] mt-1">Azure / AWS</p></div>
                 </div>
                 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center">
                         <i class="fas fa-lock text-4xl text-white"></i>
                     </div>
@@ -314,17 +313,17 @@
                     </div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-red-600 to-red-900 flex items-center justify-center"><i class="fas fa-user-shield text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Segurança Dados</h3><p class="text-gray-400 text-[10px] mt-1">Fundação Bradesco</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center"><i class="fas fa-robot text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Automação IA</h3><p class="text-gray-400 text-[10px] mt-1">Docker + N8N</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-blue-400 to-cyan-600 flex items-center justify-center"><i class="fa-brands fa-microsoft text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Dynamics 365</h3><p class="text-gray-400 text-[10px] mt-1">Microsoft / DSA</p></div>
                 </div>
@@ -338,52 +337,52 @@
         <div class="marquee-container w-full" id="marquee-cert-4">
             <div class="marquee-content pb-32">
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-file-excel text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Excel Avançado</h3><p class="text-gray-400 text-[10px] mt-1">Fórmulas & Dashboards</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-chart-line text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">PowerPoint Pro</h3><p class="text-gray-400 text-[10px] mt-1">Storytelling & Design</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-briefcase text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Gestão de Projetos</h3><p class="text-gray-400 text-[10px] mt-1">PMBOK / Cronogramas</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-user-tie text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Liderança</h3><p class="text-gray-400 text-[10px] mt-1">Gestão de Equipes</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-clock text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Gestão de Tempo</h3><p class="text-gray-400 text-[10px] mt-1">Produtividade / GTD</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-comments text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Comunicação Profissional</h3><p class="text-gray-400 text-[10px] mt-1">Clareza & Objetividade</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center"><i class="fas fa-file-excel text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Excel Intermediário</h3><p class="text-gray-400 text-[10px] mt-1">Fundação Bradesco</p></div>
                 </div>
                 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-blue-500 to-indigo-700 flex items-center justify-center"><i class="fas fa-file-word text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Word Intermediário</h3><p class="text-gray-400 text-[10px] mt-1">Fundação Bradesco</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-slate-400 to-slate-600 flex items-center justify-center"><i class="fas fa-lightbulb text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Cultura Digital</h3><p class="text-gray-400 text-[10px] mt-1">Fundação Bradesco</p></div>
                 </div>
 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-32 sm:w-40 h-40 sm:h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center"><i class="fas fa-plane text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Conceitos Aviação</h3><p class="text-gray-400 text-[10px] mt-1">SEST</p></div>
                 </div>
@@ -1048,6 +1047,12 @@
                     }, { passive: false });
                 }
             });
+        }
+
+        function confirmRedirect(url) {
+            if (confirm('Deseja realmente visitar este link?')) {
+                window.open(url, '_blank');
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
