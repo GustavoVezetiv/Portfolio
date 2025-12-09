@@ -168,6 +168,13 @@
     pointer-events: none !important;
 }
 
+/* Exceção: Botão de rolar deve ser clicável */
+#page-chaos button {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+}
+
 /* Exceção: O efeito de glitch em si deve rodar (é um "defeito", não uma feature) */
 @keyframes chaos-flicker {
     0% { opacity: 1; filter: hue-rotate(0deg); }

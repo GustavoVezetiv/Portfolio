@@ -1,7 +1,7 @@
 /* ARQUIVO: script.js */
 
 // --- ESTADO DO JOGO --- //
-let rollCount = 0; 
+let rollCount = parseInt(localStorage.getItem('rollCount')) || 0; 
 let isRolling = false;
 let currentOpenApp = null;
 
@@ -29,19 +29,19 @@ function rollDestiny() {
         d20Icon.style.transform = 'rotate(0deg) scale(1)';
         let roll;
         
-        // Rigged Logic
-        if (rollCount < 2) roll = Math.floor(Math.random() * 19) + 1; 
-        else if (rollCount === 2) roll = 20; 
-        else roll = Math.floor(Math.random() * 20) + 1;
+        // Lógica: sempre aleatório
+        roll = Math.floor(Math.random() * 20) + 1;
         
         rollCount++;
+        localStorage.setItem('rollCount', rollCount.toString());
         d20Icon.style.opacity = '0.2';
         d20Result.innerText = roll;
         d20Result.style.opacity = '1';
 
         setTimeout(() => {
-            if (roll === 20) {
-                triggerCriticalSuccess();
+            // Verifica se roll >= 15 para sucesso
+            if (roll >= 15) {
+                triggerCriticalSuccess(roll);
             } else {
                 triggerChaosMode(roll);
             }
@@ -50,7 +50,7 @@ function rollDestiny() {
     }, 1000);
 }
 
-function triggerCriticalSuccess() {
+function triggerCriticalSuccess(roll) {
     // 1. Mostra animação de sucesso
     uglyOverlay.style.opacity = "0";
     setTimeout(() => uglyOverlay.style.display = "none", 500);
@@ -61,8 +61,9 @@ function triggerCriticalSuccess() {
 
     diceContainer.style.opacity = '0';
 
-    // 2. SALVA O TOKEN DE ACESSO
+    // 2. SALVA O TOKEN DE ACESSO E O RESULTADO DO ROLL
     sessionStorage.setItem('acessoPermitido', 'true');
+    sessionStorage.setItem('lastRoll', roll.toString());
 
     // 3. REDIRECIONA PARA O DASHBOARD (Após 2.5s) - Interface Perfeita!
     setTimeout(() => {
@@ -73,6 +74,9 @@ function triggerCriticalSuccess() {
 function triggerChaosMode(roll) {
     uglyOverlay.style.opacity = "0";
     setTimeout(() => uglyOverlay.style.display = "none", 1500);
+    
+    // Salva o roll para validação posterior
+    sessionStorage.setItem('lastRoll', roll.toString());
     
     // Mantém o dado visível, apenas deixa transparente
     diceContainer.style.opacity = '1';
@@ -98,7 +102,7 @@ function generateChaosContent(roll) {
         <div class="w-full max-w-2xl mx-auto bg-red-500/20 border border-red-500/50 p-6 rounded-lg text-center mt-20">
             <h3 class="text-red-400 font-bold text-xl mb-4">⚠ GLITCH DETECTED ⚠</h3>
             <p class="text-white/80 font-mono mb-4">O sistema falhou ao carregar a interface (Roll: ${roll}).</p>
-            <p class="text-yellow-400 font-bold animate-pulse">Tente rolar novamente!</p>
+            <button onclick="rollDestiny()" class="px-6 py-2 border-2 border-yellow-400 text-yellow-400 font-bold rounded hover:bg-yellow-400 hover:text-black transition-all duration-200 cursor-pointer animate-pulse hover:animate-none">Tente rolar novamente!</button>
         </div>
     `;
 }

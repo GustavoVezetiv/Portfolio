@@ -26,7 +26,13 @@
         <section class="page-section h-full w-full flex flex-col items-center justify-center font-inter bg-[#6C8491] relative">
 
             <div id="v3-hero"
-                class="flex-1 flex flex-col justify-center items-center mb-24 animate-fadeIn transition-all duration-500">
+                class="flex-1 flex flex-col justify-center items-center mb-24 animate-fadeIn transition-all duration-500 relative w-full">
+                <!-- Botão Voltar no topo direito -->
+                <button onclick="goBackToIndex()" class="absolute top-8 right-8 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition-all hover:scale-110 group">
+                    <i class="fas fa-arrow-left text-sm"></i>
+                    <span class="absolute -bottom-8 right-0 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Voltar</span>
+                </button>
+
                 <h1
                     class="font-montserrat font-black text-main text-[clamp(3rem,10vw,8rem)] leading-[0.9] uppercase tracking-tighter">
                     GUSTAVO</h1>
@@ -38,6 +44,27 @@
                         21</span>
                     <span
                         class="px-2 py-1 bg-white/10 rounded text-[10px] uppercase tracking-widest border border-white/20">Cuiabá-MT</span>
+                </div>
+
+                <!-- Redes Sociais abaixo do nome -->
+                <div class="flex gap-3 mt-6">
+                    <a href="https://linkedin.com/in/gustavovezetiv" target="_blank"
+                        class="group relative w-10 h-10 bg-white/10 hover:bg-blue-600/30 rounded-lg flex justify-center items-center text-white/70 hover:text-white text-lg border border-white/10 cursor-pointer transition-all">
+                        <i class="fab fa-linkedin-in"></i>
+                        <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">LinkedIn</span>
+                    </a>
+
+                    <a href="https://instagram.com/gustavovezetiv" target="_blank"
+                        class="group relative w-10 h-10 bg-white/10 hover:bg-pink-600/30 rounded-lg flex justify-center items-center text-white/70 hover:text-white text-lg border border-white/10 cursor-pointer transition-all">
+                        <i class="fab fa-instagram"></i>
+                        <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Instagram</span>
+                    </a>
+
+                    <a href="https://github.com/gustavovezetiv" target="_blank"
+                        class="group relative w-10 h-10 bg-white/10 hover:bg-gray-700/30 rounded-lg flex justify-center items-center text-white/70 hover:text-white text-lg border border-white/10 cursor-pointer transition-all">
+                        <i class="fab fa-github"></i>
+                        <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">GitHub</span>
+                    </a>
                 </div>
             </div>
 
@@ -64,29 +91,6 @@
             <div id="source-dock" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 w-auto max-w-[95vw] mb-2">
                 <div
                     class="dock-container flex items-end gap-3 p-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl">
-
-                    <a href="javascript:void(0)" onclick="openSocialLink('https://www.linkedin.com/in/gustavo-vezetiv-08416126b/', 'LinkedIn')"
-                        class="dock-item group relative w-12 h-12 bg-white/10 rounded-xl flex justify-center items-center text-white/90 text-2xl border border-white/5 cursor-pointer shadow-lg">
-                        <i class="fab fa-linkedin-in"></i>
-                        <span
-                            class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">LinkedIn</span>
-                    </a>
-
-                    <a href="javascript:void(0)" onclick="openSocialLink('https://www.instagram.com/vezeti_v/', 'Instagram')"
-                        class="dock-item group relative w-12 h-12 bg-white/10 rounded-xl flex justify-center items-center text-white/90 text-2xl border border-white/5 cursor-pointer shadow-lg">
-                        <i class="fab fa-instagram"></i>
-                        <span
-                            class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Instagram</span>
-                    </a>
-
-                    <a href="javascript:void(0)" onclick="openSocialLink('https://github.com/GustavoVezetiv', 'GitHub')"
-                        class="dock-item group relative w-12 h-12 bg-white/10 rounded-xl flex justify-center items-center text-white/90 text-2xl border border-white/5 cursor-pointer shadow-lg">
-                        <i class="fab fa-github"></i>
-                        <span
-                            class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">GitHub</span>
-                    </a>
-
-                    <div class="w-[1px] h-8 bg-white/20 mx-1 self-center"></div>
 
                     <div onclick="loadApp('certificados')"
                         class="dock-item group relative w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex justify-center items-center text-white text-2xl border border-white/20 cursor-pointer shadow-lg">
@@ -870,6 +874,26 @@
             closeApp();
         }
 
+        function goBackToIndex() {
+            // Recupera o último roll do sessionStorage
+            const lastRoll = sessionStorage.getItem('lastRoll');
+            
+            if (!lastRoll || parseInt(lastRoll) <= 15) {
+                alert('⚠ Você precisa rolar mais de 15 para sair! Volte e role o dado novamente.');
+                return;
+            }
+            
+            // Limpa o token de acesso e volta para index
+            sessionStorage.removeItem('acessoPermitido');
+            sessionStorage.removeItem('lastRoll');
+            sessionStorage.removeItem('dashboardLocked');
+            
+            // Reseta o contador de rolls para voltar à lógica aleatória
+            localStorage.setItem('rollCount', '0');
+            
+            window.location.href = 'index.html';
+        }
+
         function createDraggableMarquee(container, initialSpeed) {
             if (!container) return;
             const content = container.querySelector('.marquee-content');
@@ -882,7 +906,9 @@
             let xPos = 0;
             let isDragging = false;
             let startX = 0;
+            let startY = 0;
             let lastX = 0;
+            let isHorizontalDrag = false;
 
             function animate() {
                 if (!document.body.contains(container)) return;
@@ -897,6 +923,8 @@
             // Mouse events
             container.addEventListener('mousedown', e => {
                 isDragging = true;
+                isHorizontalDrag = false;
+                startX = e.clientX;
                 lastX = e.clientX;
                 container.style.cursor = 'grabbing';
             });
@@ -910,26 +938,43 @@
             window.addEventListener('mouseup', () => {
                 isDragging = false;
                 container.style.cursor = 'grab';
+                isHorizontalDrag = false;
             });
 
-            // Touch events (mobile)
+            // Touch events (mobile) - Detecta direção do movimento
             container.addEventListener('touchstart', e => {
                 isDragging = true;
+                isHorizontalDrag = false;
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
                 lastX = e.touches[0].clientX;
-                e.preventDefault();
-                e.stopPropagation();
-            });
+            }, { passive: true });
+            
             window.addEventListener('touchmove', e => {
                 if(isDragging) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const delta = e.touches[0].clientX - lastX;
-                    xPos += delta * 1.5;
-                    lastX = e.touches[0].clientX;
+                    const currentX = e.touches[0].clientX;
+                    const currentY = e.touches[0].clientY;
+                    const diffX = Math.abs(currentX - startX);
+                    const diffY = Math.abs(currentY - startY);
+                    
+                    // Detecta se é movimento horizontal (para carrossel) ou vertical (para scroll)
+                    if (diffX > diffY && diffX > 5) {
+                        isHorizontalDrag = true;
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                    
+                    if (isHorizontalDrag) {
+                        const delta = currentX - lastX;
+                        xPos += delta * 1.5;
+                        lastX = currentX;
+                    }
                 }
             }, { passive: false });
+            
             window.addEventListener('touchend', () => {
                 isDragging = false;
+                isHorizontalDrag = false;
             });
 
             requestAnimationFrame(animate);
