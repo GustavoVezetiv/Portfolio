@@ -959,20 +959,42 @@
                         card.style.cursor = 'pointer';
                     }
                     
-                    // Adiciona touchstart para mobile
+                    // Variáveis para rastrear movimento
+                    let touchStartX = 0;
+                    let touchStartY = 0;
+                    let hasMoved = false;
+                    
+                    // Detecta início do toque
                     card.addEventListener('touchstart', function(e) {
-                        // Previne scroll acidental
-                        e.preventDefault();
-                        openCertModal(titulo);
-                    }, { passive: false });
+                        touchStartX = e.touches[0].clientX;
+                        touchStartY = e.touches[0].clientY;
+                        hasMoved = false;
+                        this.style.transition = 'none';
+                    }, { passive: true });
 
-                    // Adiciona hover effect para mobile
-                    card.addEventListener('touchend', function() {
-                        this.style.transform = 'scale(1.05)';
-                        setTimeout(() => {
-                            this.style.transform = '';
-                        }, 200);
-                    });
+                    // Detecta movimento durante o toque
+                    card.addEventListener('touchmove', function(e) {
+                        const touchCurrentX = e.touches[0].clientX;
+                        const touchCurrentY = e.touches[0].clientY;
+                        
+                        const moveX = Math.abs(touchCurrentX - touchStartX);
+                        const moveY = Math.abs(touchCurrentY - touchStartY);
+                        
+                        // Se moveu mais de 10px, considera como movimento (não tap)
+                        if (moveX > 10 || moveY > 10) {
+                            hasMoved = true;
+                        }
+                    }, { passive: true });
+
+                    // Abre modal apenas se não houve movimento
+                    card.addEventListener('touchend', function(e) {
+                        this.style.transition = 'all 0.3s ease';
+                        
+                        if (!hasMoved) {
+                            e.preventDefault();
+                            openCertModal(titulo);
+                        }
+                    }, { passive: false });
                 }
             });
         }
