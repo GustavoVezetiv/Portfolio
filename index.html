@@ -161,6 +161,12 @@
 
     </main>
 
+    <script>
+        // Se já completou o processo de acesso e está no dashboard, não deixa voltar
+        if (sessionStorage.getItem('dashboardLocked') === 'true' && sessionStorage.getItem('acessoPermitido') === 'true') {
+            window.location.href = "dashboard.html";
+        }
+    </script>
     <script src="js/script.js"></script>
 </body>
 

@@ -129,6 +129,11 @@
     }
     #source-dock {
         max-width: 90vw;
+        bottom: 16px !important;
+        padding-bottom: 10px;
+    }
+    .dock-container {
+        padding: 12px !important;
     }
 }
 /* App Window Animation */
@@ -220,6 +225,17 @@
     transform: translateY(0);
     box-shadow: 0 4px 8px rgba(6, 182, 212, 0.15),
                 inset 0 0 0 1px rgba(6, 182, 212, 0.3);
+}
+
+/* --- PDF PREVIEW --- */
+#template-curriculo iframe {
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    #template-curriculo iframe {
+        height: 500px;
+    }
 }
 
 /* Ícone com rotação */
