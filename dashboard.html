@@ -41,7 +41,7 @@
                 </div>
             </div>
 
-            <div id="v3-app-window" class="hidden absolute inset-0 z-40 flex items-center justify-center p-4 md:p-10 backdrop-blur-md bg-black/40 app-window" onclick="handleBackdropClick(event)">
+            <div id="v3-app-window" class="hidden absolute inset-0 z-40 flex items-center justify-center p-4 md:p-10 backdrop-blur-md bg-black/40 app-window pointer-events-none" onclick="handleBackdropClick(event)">
                 <div id="v3-app-content"
                     class="w-full h-full max-w-6xl bg-[#0f1014] rounded-3xl border border-white/10 shadow-2xl overflow-hidden relative flex flex-col" onclick="event.stopPropagation()">
                     <div
@@ -123,6 +123,18 @@
             </div>
         </section>
 
+        <!-- Modal de Detalhes de Certificação -->
+        <div id="cert-modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4 backdrop-blur-sm bg-black/60 pointer-events-none" onclick="closeCertModal(event)">
+            <div class="bg-[#0f1014] rounded-2xl border border-white/10 max-w-md w-full p-6 relative pointer-events-auto" onclick="event.stopPropagation()">
+                <button onclick="closeCertModal()" class="absolute top-3 right-3 text-white/60 hover:text-white text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div id="cert-modal-content" class="space-y-4">
+                    <!-- Conteúdo será preenchido dinamicamente -->
+                </div>
+            </div>
+        </div>
+
 <!--        --- TEMPLATE CARROCEL CERTIFICADOS DE CURSOS  --- -->
 <div id="template-certificados" class="hidden">
     <div class="text-center mb-10 mt-10">
@@ -135,7 +147,7 @@
         <div class="marquee-container w-full" id="marquee-cert-1">
             <div class="marquee-content">
                 
-                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform">
+                <div class="w-40 h-56 bg-[#1a1b1f] rounded-xl overflow-hidden flex-shrink-0 border border-white/5 flex flex-col hover:scale-105 transition-transform cursor-pointer" onclick="openCertModal('Clean Code & SOLID')">
                     <div class="h-[60%] w-full bg-gradient-to-br from-cyan-700 to-teal-900 flex items-center justify-center"><i class="fa-solid fa-code text-4xl text-white"></i></div>
                     <div class="h-[40%] p-3 flex flex-col justify-center"><h3 class="text-white text-xs font-bold">Clean Code & SOLID</h3><p class="text-gray-400 text-[10px] mt-1">Boas Práticas</p></div>
                 </div>
@@ -567,6 +579,205 @@
 
         let currentOpenApp = null;
 
+        // ===== BANCO DE DADOS DE CERTIFICAÇÕES =====
+        const certificacoes = {
+            'Clean Code & SOLID': {
+                icon: '<i class="fa-solid fa-code text-4xl text-white"></i>',
+                descricao: 'Domínio de princípios de código limpo e arquitetura SOLID. Essencial para criar código manutenível, escalável e seguindo as melhores práticas de engenharia de software.'
+            },
+            'Estruturas de Dados': {
+                icon: '<i class="fa-solid fa-database text-4xl text-white"></i>',
+                descricao: 'Conhecimento profundo sobre estruturas de dados como arrays, listas, árvores, grafos e hash tables. Fundamental para otimizar algoritmos e melhorar performance.'
+            },
+            'React / React Native': {
+                icon: '<i class="fa-brands fa-react text-4xl text-white"></i>',
+                descricao: 'Desenvolvimento de aplicações web com React e mobile com React Native. Criação de componentes reutilizáveis, gerenciamento de estado e hooks.'
+            },
+            'Docker Avançado': {
+                icon: '<i class="fa-brands fa-docker text-4xl text-white"></i>',
+                descricao: 'Containerização de aplicações, orquestração com Docker Compose, otimização de imagens e implementação de boas práticas em ambientes de produção.'
+            },
+            'Arquitetura de Software': {
+                icon: '<i class="fa-solid fa-diagram-project text-4xl text-white"></i>',
+                descricao: 'Design de arquiteturas escaláveis. Domínio de padrões como MVC, REST, microserviços e orientação a domínio (DDD).'
+            },
+            'Testes com Pytest': {
+                icon: '<i class="fa-solid fa-vial text-4xl text-white"></i>',
+                descricao: 'Testes unitários e de integração com Pytest. Implementação de Test-Driven Development (TDD) e cobertura de código para garantir qualidade.'
+            },
+            'Python P/ Dados': {
+                icon: '<i class="fa-brands fa-python text-4xl text-white"></i>',
+                descricao: 'Python para análise de dados com bibliotecas como Pandas, NumPy e Matplotlib. Manipulação e visualização de dados para insights.'
+            },
+            'Web com Django': {
+                icon: '<i class="fas fa-server text-4xl text-white"></i>',
+                descricao: 'Desenvolvimento web com Django. ORM, autenticação, APIs, middleware e boas práticas de desenvolvimento web em Python.'
+            },
+            'APIs RESTful': {
+                icon: '<i class="fas fa-cloud text-4xl text-white"></i>',
+                descricao: 'Design e implementação de APIs RESTful com Django. HTTP methods, status codes, autenticação e documentação com Swagger/OpenAPI.'
+            },
+            'Scrum SFC™': {
+                icon: '<i class="fas fa-people-group text-4xl text-white"></i>',
+                descricao: 'Certificação Scrum Foundation Certified. Metodologia ágil, sprints, planning, retrospectivas e gestão eficiente de projetos.'
+            },
+            'SQL & PostgreSQL': {
+                icon: '<i class="fa-solid fa-database text-4xl text-white"></i>',
+                descricao: 'Consultas SQL avançadas, otimização de índices e performance. PostgreSQL com triggers, stored procedures e advanced features.'
+            },
+            'Machine Learning': {
+                icon: '<i class="fa-solid fa-robot text-4xl text-white"></i>',
+                descricao: 'Desenvolvimento de modelos de machine learning com Scikit-learn. Classificação, regressão, clustering e validação de modelos.'
+            },
+            'Prompt Engineering': {
+                icon: '<i class="fa-solid fa-wand-magic-sparkles text-4xl text-white"></i>',
+                descricao: 'Técnicas avançadas para otimizar prompts com IA generativa. Maximizar resultados com ChatGPT, Claude e outros modelos de IA.'
+            },
+            'Power BI Avançado': {
+                icon: '<i class="fa-solid fa-chart-simple text-4xl text-white"></i>',
+                descricao: 'Dashboard avançado com Power BI. DAX, modelagem de dados, relações complexas e otimização de performance em relatórios.'
+            },
+            'BigQuery (Google)': {
+                icon: '<i class="fa-solid fa-cloud text-4xl text-white"></i>',
+                descricao: 'Data warehouse em cloud com Google BigQuery. Processamento em larga escala, SQL otimizado e análise de big data.'
+            },
+            'Data Warehouse': {
+                icon: '<i class="fa-solid fa-database text-4xl text-white"></i>',
+                descricao: 'Modelagem e implementação de data warehouses. Star schema, fact tables, dimension tables e processos ETL.'
+            },
+            'Power BI P/ Análise': {
+                icon: '<i class="fas fa-chart-line text-4xl text-white"></i>',
+                descricao: 'Análise de dados com Power BI. Visualizações interativas, insights de negócio e tomada de decisão baseada em dados.'
+            },
+            'Modelagem de Dados': {
+                icon: '<i class="fas fa-database text-4xl text-white"></i>',
+                descricao: 'Design de banco de dados relacional. Normalização, relacionamentos, integridade referencial e otimização de esquema.'
+            },
+            'Imersão em IA': {
+                icon: '<i class="fas fa-brain text-4xl text-white"></i>',
+                descricao: 'Imersão completa em Inteligência Artificial. Fundamentos, aplicações práticas e tendências em IA generativa.'
+            },
+            'IA & Cultura Digital': {
+                icon: '<i class="fas fa-microchip text-4xl text-white"></i>',
+                descricao: 'Impacto da IA na transformação digital. Mudanças culturais, gestão de mudanças e adoção de tecnologias emergentes.'
+            },
+            'Cibersegurança': {
+                icon: '<i class="fa-solid fa-lock text-4xl text-white"></i>',
+                descricao: 'Princípios de segurança da informação. Prevenção de ataques, criptografia, autenticação e gestão de vulnerabilidades.'
+            },
+            'Fundamentos de Redes': {
+                icon: '<i class="fa-solid fa-network-wired text-4xl text-white"></i>',
+                descricao: 'TCP/IP, OSI model, VLANs e roteamento. Configuração de redes e troubleshooting de conectividade.'
+            },
+            'Firewalls & VPN': {
+                icon: '<i class="fa-solid fa-server text-4xl text-white"></i>',
+                descricao: 'Configuração de firewalls com PfSense e Mikrotik. VPN, regras de firewall e políticas de segurança de rede.'
+            },
+            'LGPD': {
+                icon: '<i class="fa-solid fa-user-shield text-4xl text-white"></i>',
+                descricao: 'Lei Geral de Proteção de Dados Pessoais. Conformidade, privacidade de dados e responsabilidades legais.'
+            },
+            'Hardening Linux': {
+                icon: '<i class="fa-solid fa-terminal text-4xl text-white"></i>',
+                descricao: 'Segurança avançada em Linux. Permissões, firewall, SELinux, hardening e mitigação de vulnerabilidades.'
+            },
+            'Cloud Fundamentals': {
+                icon: '<i class="fa-solid fa-cloud-arrow-up text-4xl text-white"></i>',
+                descricao: 'Fundamentos de cloud computing. AWS, Azure e Google Cloud. IaaS, PaaS, SaaS e arquitetura em nuvem.'
+            },
+            'Segurança TI': {
+                icon: '<i class="fas fa-lock text-4xl text-white"></i>',
+                descricao: 'Segurança em Tecnologia da Informação. Gestão de riscos, compliance e boas práticas de segurança corporativa.'
+            },
+            'Segurança Dados': {
+                icon: '<i class="fas fa-user-shield text-4xl text-white"></i>',
+                descricao: 'Proteção de dados pessoais e sensíveis. Criptografia, backup, disaster recovery e conformidade com regulações.'
+            },
+            'Automação IA': {
+                icon: '<i class="fas fa-robot text-4xl text-white"></i>',
+                descricao: 'Automação com IA usando Docker e N8N. Workflows automatizados e integração de serviços para otimizar processos.'
+            },
+            'Dynamics 365': {
+                icon: '<i class="fa-brands fa-microsoft text-4xl text-white"></i>',
+                descricao: 'Microsoft Dynamics 365. CRM, ERP e automação de processos de negócio com a plataforma Microsoft.'
+            },
+            'Excel Avançado': {
+                icon: '<i class="fa-solid fa-file-excel text-4xl text-white"></i>',
+                descricao: 'Fórmulas avançadas, tabelas dinâmicas e dashboards. Análise de dados e automatização com Excel.'
+            },
+            'PowerPoint Pro': {
+                icon: '<i class="fa-solid fa-chart-line text-4xl text-white"></i>',
+                descricao: 'Apresentações impactantes com PowerPoint. Storytelling visual e design profissional para comunicação eficaz.'
+            },
+            'Gestão de Projetos': {
+                icon: '<i class="fa-solid fa-briefcase text-4xl text-white"></i>',
+                descricao: 'PMBOK e metodologias de gestão de projetos. Planejamento, execução, monitoramento e encerramento de projetos.'
+            },
+            'Liderança': {
+                icon: '<i class="fa-solid fa-user-tie text-4xl text-white"></i>',
+                descricao: 'Desenvolvimento de competências de liderança. Gestão de equipes, comunicação e influência positiva.'
+            },
+            'Gestão de Tempo': {
+                icon: '<i class="fa-solid fa-clock text-4xl text-white"></i>',
+                descricao: 'Produtividade e Getting Things Done (GTD). Técnicas de gestão de tempo para máxima eficiência.'
+            },
+            'Comunicação Profissional': {
+                icon: '<i class="fa-solid fa-comments text-4xl text-white"></i>',
+                descricao: 'Comunicação clara e objetiva. Escrita profissional, apresentações e comunicação interpessoal efetiva.'
+            },
+            'Excel Intermediário': {
+                icon: '<i class="fas fa-file-excel text-4xl text-white"></i>',
+                descricao: 'Domínio intermediário de Excel. Funções avançadas, análise de dados e visualizações básicas.'
+            },
+            'Word Intermediário': {
+                icon: '<i class="fas fa-file-word text-4xl text-white"></i>',
+                descricao: 'Edição profissional de documentos com Word. Formatação avançada, templates e criação de documentos estruturados.'
+            },
+            'Cultura Digital': {
+                icon: '<i class="fas fa-lightbulb text-4xl text-white"></i>',
+                descricao: 'Transformação digital e cultura organizacional. Adoção de novas tecnologias e mentalidade inovadora.'
+            },
+            'Conceitos Aviação': {
+                icon: '<i class="fas fa-plane text-4xl text-white"></i>',
+                descricao: 'Fundamentos da aviação civil. Conhecimento técnico de aeronaves, procedimentos e regulamentações aéreas.'
+            }
+        };
+
+        function openCertModal(titulo) {
+            const cert = certificacoes[titulo];
+            if (!cert) return;
+
+            const modal = document.getElementById('cert-modal');
+            const content = document.getElementById('cert-modal-content');
+
+            content.innerHTML = `
+                <div class="flex justify-center mb-4">
+                    <div class="w-20 h-20 bg-gradient-to-br from-cyan-700 to-teal-900 rounded-xl flex items-center justify-center">
+                        ${cert.icon}
+                    </div>
+                </div>
+                <h2 class="text-2xl font-bold text-white text-center mb-4">${titulo}</h2>
+                <p class="text-white/70 leading-relaxed text-center">${cert.descricao}</p>
+            `;
+
+            modal.classList.remove('hidden');
+            modal.style.pointerEvents = 'auto';
+        }
+
+        function closeCertModal(event) {
+            if (event && event.target.id !== 'cert-modal') return;
+            const modal = document.getElementById('cert-modal');
+            modal.classList.add('hidden');
+            modal.style.pointerEvents = 'none';
+        }
+
+        // Fechar modal ao pressionar ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeCertModal({ target: { id: 'cert-modal' } });
+            }
+        });
+
         function openSocialLink(url, socialName) {
             const confirmed = confirm(`Você está indo para ${socialName}, tem certeza que deseja ir?`);
             if (confirmed) {
@@ -575,10 +786,16 @@
         }
 
         function loadApp(appId) {
+            console.log('loadApp chamado com:', appId);
             const windowEl = document.getElementById('v3-app-window');
             const bodyEl = document.getElementById('v3-app-body');
             const titleEl = document.getElementById('v3-app-title');
             const heroEl = document.getElementById('v3-hero');
+
+            if (!windowEl || !bodyEl) {
+                console.error('Elementos não encontrados');
+                return;
+            }
 
             if (!windowEl.classList.contains('hidden') && currentOpenApp === appId) {
                 closeApp();
@@ -591,6 +808,8 @@
 
             const templateId = `template-${appId}`;
             const templateElement = document.getElementById(templateId);
+
+            console.log('Procurando template:', templateId, 'Encontrado:', !!templateElement);
 
             if (templateElement) {
                 bodyEl.innerHTML = "";
@@ -606,6 +825,7 @@
                 titleEl.innerText = title;
 
                 windowEl.classList.remove('hidden');
+                windowEl.style.pointerEvents = 'auto';
 
                 if (appId === 'certificados') {
                     setTimeout(() => {
@@ -613,13 +833,18 @@
                         marquees.forEach(marquee => createDraggableMarquee(marquee, -0.5));
                     }, 100);
                 }
+            } else {
+                console.error('Template não encontrado:', templateId);
             }
         }
 
         function closeApp() {
             const windowEl = document.getElementById('v3-app-window');
             const heroEl = document.getElementById('v3-hero');
-            if (windowEl) windowEl.classList.add('hidden');
+            if (windowEl) {
+                windowEl.classList.add('hidden');
+                windowEl.style.pointerEvents = 'none';
+            }
             if (heroEl) {
                 heroEl.style.opacity = '1';
                 heroEl.style.transform = 'scale(1)';
@@ -721,6 +946,41 @@
                 toggleIcon.classList.add('fa-chevron-down');
             }
         }
+
+        // Adicionar onclick aos cards de certificação dinamicamente
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('#template-certificados .w-40.h-56');
+            cards.forEach(card => {
+                if (!card.hasAttribute('onclick')) {
+                    const titulo = card.querySelector('h3')?.textContent.trim();
+                    if (titulo && certificacoes[titulo]) {
+                        card.setAttribute('onclick', `openCertModal('${titulo}')`);
+                        card.style.cursor = 'pointer';
+                    }
+                }
+            });
+        });
+
+        // Quando o template for clonado e exibido, adiciona interatividade aos cards
+        const originalLoadApp = loadApp;
+        loadApp = function(appId) {
+            originalLoadApp.call(this, appId);
+            
+            if (appId === 'certificados') {
+                setTimeout(() => {
+                    const cards = document.querySelectorAll('#v3-app-body .w-40.h-56');
+                    cards.forEach(card => {
+                        if (!card.getAttribute('onclick')?.includes('openCertModal')) {
+                            const titulo = card.querySelector('h3')?.textContent.trim();
+                            if (titulo && certificacoes[titulo]) {
+                                card.setAttribute('onclick', `openCertModal('${titulo}')`);
+                                card.style.cursor = 'pointer';
+                            }
+                        }
+                    });
+                }, 100);
+            }
+        };
     </script>
 </body>
 
