@@ -263,11 +263,26 @@
 #template-certificados .w-40.h-56 {
     cursor: pointer;
     transition: all 0.3s ease;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 #template-certificados .w-40.h-56:hover {
     border-color: rgba(6, 182, 212, 0.5);
     box-shadow: 0 0 12px rgba(6, 182, 212, 0.2);
+}
+
+/* Mobile touch feedback */
+@media (max-width: 768px) {
+    #template-certificados .w-40.h-56 {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    #template-certificados .w-40.h-56:active {
+        transform: scale(0.98);
+        opacity: 0.9;
+    }
 }
 
 @media (max-width: 768px) {

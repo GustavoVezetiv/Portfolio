@@ -948,17 +948,37 @@
         }
 
         // Adicionar onclick aos cards de certificação dinamicamente
-        document.addEventListener('DOMContentLoaded', () => {
-            const cards = document.querySelectorAll('#template-certificados .w-40.h-56');
+        function addCertCardListeners(container = document) {
+            const cards = container.querySelectorAll('.w-40.h-56[style*="cursor: pointer"], .w-40.h-56:not([onclick])');
             cards.forEach(card => {
-                if (!card.hasAttribute('onclick')) {
-                    const titulo = card.querySelector('h3')?.textContent.trim();
-                    if (titulo && certificacoes[titulo]) {
+                const titulo = card.querySelector('h3')?.textContent.trim();
+                if (titulo && certificacoes[titulo]) {
+                    // Adiciona onclick para desktop
+                    if (!card.hasAttribute('onclick')) {
                         card.setAttribute('onclick', `openCertModal('${titulo}')`);
                         card.style.cursor = 'pointer';
                     }
+                    
+                    // Adiciona touchstart para mobile
+                    card.addEventListener('touchstart', function(e) {
+                        // Previne scroll acidental
+                        e.preventDefault();
+                        openCertModal(titulo);
+                    }, { passive: false });
+
+                    // Adiciona hover effect para mobile
+                    card.addEventListener('touchend', function() {
+                        this.style.transform = 'scale(1.05)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 200);
+                    });
                 }
             });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            addCertCardListeners(document);
         });
 
         // Quando o template for clonado e exibido, adiciona interatividade aos cards
@@ -968,16 +988,10 @@
             
             if (appId === 'certificados') {
                 setTimeout(() => {
-                    const cards = document.querySelectorAll('#v3-app-body .w-40.h-56');
-                    cards.forEach(card => {
-                        if (!card.getAttribute('onclick')?.includes('openCertModal')) {
-                            const titulo = card.querySelector('h3')?.textContent.trim();
-                            if (titulo && certificacoes[titulo]) {
-                                card.setAttribute('onclick', `openCertModal('${titulo}')`);
-                                card.style.cursor = 'pointer';
-                            }
-                        }
-                    });
+                    const appBody = document.getElementById('v3-app-body');
+                    if (appBody) {
+                        addCertCardListeners(appBody);
+                    }
                 }, 100);
             }
         };
