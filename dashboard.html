@@ -834,22 +834,11 @@
         }
 
         function goBackToIndex() {
-            // Recupera o último roll do sessionStorage
-            const lastRoll = sessionStorage.getItem('lastRoll');
-            
-            if (!lastRoll || parseInt(lastRoll) <= 15) {
-                alert('⚠ Você precisa rolar mais de 15 para sair! Volte e role o dado novamente.');
-                return;
-            }
-            
-            // Limpa o token de acesso e volta para index
+            // Sempre permitir voltar para a tela inicial e rolar novamente
             sessionStorage.removeItem('acessoPermitido');
             sessionStorage.removeItem('lastRoll');
             sessionStorage.removeItem('dashboardLocked');
-            
-            // Reseta o contador de rolls para voltar à lógica aleatória
             localStorage.setItem('rollCount', '0');
-            
             window.location.href = 'index.html';
         }
 
