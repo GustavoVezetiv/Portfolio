@@ -1,0 +1,1369 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <title>Sorteador de Temas — TMA</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07111f;
+      --bg-soft: #0c1728;
+      --panel: rgba(15, 27, 46, .92);
+      --panel-strong: #12213a;
+      --line: #2a3a55;
+      --text: #f7f9fc;
+      --muted: #9baac0;
+      --accent: #6ee7b7;
+      --accent-strong: #34d399;
+      --accent-soft: rgba(110, 231, 183, .12);
+      --blue: #7cb7ff;
+      --danger: #fb7185;
+      --warning: #facc15;
+      --shadow: 0 22px 70px rgba(0, 0, 0, .35);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(59, 130, 246, .18), transparent 32rem),
+        radial-gradient(circle at 90% 8%, rgba(16, 185, 129, .12), transparent 30rem),
+        linear-gradient(180deg, #07111f 0%, #081321 100%);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    button, select, input {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .app {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 54px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow {
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      line-height: .98;
+      letter-spacing: -.045em;
+    }
+
+    .subtitle {
+      max-width: 720px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      line-height: 1.58;
+    }
+
+    .save-status {
+      flex: 0 0 auto;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(15, 27, 46, .72);
+      color: var(--muted);
+      font-size: .84rem;
+    }
+
+    .save-status::before {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      content: "";
+      box-shadow: 0 0 12px rgba(110, 231, 183, .7);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .stat {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(15, 27, 46, .72);
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    .stat-value {
+      margin-top: 3px;
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .panel-inner {
+      padding: 20px;
+    }
+
+    .panel-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 17px;
+    }
+
+    .panel-title h2 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .panel-title span {
+      color: var(--muted);
+      font-size: .82rem;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: .84rem;
+      font-weight: 650;
+    }
+
+    select,
+    input[type="text"] {
+      width: 100%;
+      min-height: 45px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      outline: none;
+      background: var(--panel-strong);
+      color: var(--text);
+    }
+
+    select:focus,
+    input[type="text"]:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(124, 183, 255, .13);
+    }
+
+    .category-block {
+      margin-top: 18px;
+    }
+
+    .category-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .category-head strong {
+      font-size: .9rem;
+    }
+
+    .text-button {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--blue);
+      font-size: .82rem;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      position: relative;
+    }
+
+    .chip input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .chip span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 35px;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(18, 33, 58, .62);
+      transition: .16s ease;
+      user-select: none;
+    }
+
+    .chip input:checked + span {
+      border-color: rgba(110, 231, 183, .55);
+      background: var(--accent-soft);
+      color: var(--text);
+    }
+
+    .chip input:focus-visible + span {
+      outline: 2px solid var(--blue);
+      outline-offset: 2px;
+    }
+
+    .option-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      margin-top: 18px;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(18, 33, 58, .52);
+    }
+
+    .option-row strong {
+      display: block;
+      font-size: .9rem;
+    }
+
+    .option-row small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+    }
+
+    .switch {
+      position: relative;
+      flex: 0 0 auto;
+      width: 48px;
+      height: 27px;
+    }
+
+    .switch input {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .switch-track {
+      position: absolute;
+      inset: 0;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #243047;
+      transition: .18s ease;
+    }
+
+    .switch-track::after {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: #fff;
+      content: "";
+      transition: .18s ease;
+    }
+
+    .switch input:checked + .switch-track {
+      border-color: var(--accent-strong);
+      background: var(--accent-strong);
+    }
+
+    .switch input:checked + .switch-track::after {
+      transform: translateX(21px);
+    }
+
+    .switch input:focus-visible + .switch-track {
+      outline: 2px solid var(--blue);
+      outline-offset: 2px;
+    }
+
+    .result {
+      display: grid;
+      place-items: center;
+      min-height: 272px;
+      margin-top: 18px;
+      padding: 24px;
+      border: 1px dashed rgba(110, 231, 183, .38);
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(110, 231, 183, .08), rgba(124, 183, 255, .05)),
+        rgba(7, 17, 31, .45);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .result-placeholder {
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.55;
+    }
+
+    .result-content {
+      width: 100%;
+    }
+
+    .result-category {
+      display: inline-flex;
+      padding: 6px 10px;
+      border: 1px solid rgba(110, 231, 183, .35);
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 750;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .result-theme {
+      margin-top: 13px;
+      font-size: clamp(2rem, 7vw, 4.35rem);
+      font-weight: 850;
+      line-height: 1;
+      letter-spacing: -.045em;
+      overflow-wrap: anywhere;
+    }
+
+    .result-meta {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .drawing .result-theme {
+      animation: pulse .16s ease infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { opacity: .55; transform: scale(.985); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .primary {
+      width: 100%;
+      min-height: 55px;
+      margin-top: 14px;
+      border: 0;
+      border-radius: 15px;
+      background: var(--accent);
+      color: #062018;
+      font-size: 1rem;
+      font-weight: 850;
+      transition: .16s ease;
+    }
+
+    .primary:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+    }
+
+    .primary:disabled {
+      cursor: not-allowed;
+      filter: grayscale(.6);
+      opacity: .55;
+      transform: none;
+    }
+
+    .secondary-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .secondary,
+    .danger {
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(18, 33, 58, .75);
+      color: var(--text);
+      font-weight: 650;
+    }
+
+    .secondary:hover {
+      border-color: var(--blue);
+    }
+
+    .danger {
+      color: #ffc2ca;
+    }
+
+    .danger:hover {
+      border-color: var(--danger);
+    }
+
+    .history-controls {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 9px;
+      margin-bottom: 13px;
+    }
+
+    .small-button {
+      min-height: 45px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel-strong);
+      color: var(--text);
+    }
+
+    .history-list {
+      display: grid;
+      gap: 9px;
+      max-height: 580px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .history-empty {
+      padding: 34px 18px;
+      border: 1px dashed var(--line);
+      border-radius: 14px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .history-item {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(18, 33, 58, .55);
+    }
+
+    .history-index {
+      display: grid;
+      place-items: center;
+      width: 31px;
+      height: 31px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: .77rem;
+      font-weight: 850;
+    }
+
+    .history-main {
+      min-width: 0;
+    }
+
+    .history-theme {
+      overflow: hidden;
+      font-weight: 750;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .history-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 7px;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: .75rem;
+    }
+
+    .remove-item {
+      display: grid;
+      place-items: center;
+      width: 33px;
+      height: 33px;
+      padding: 0;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--muted);
+    }
+
+    .remove-item:hover {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .management {
+      margin-top: 18px;
+    }
+
+    details {
+      border-top: 1px solid var(--line);
+    }
+
+    summary {
+      padding: 17px 20px;
+      cursor: pointer;
+      color: var(--muted);
+      font-weight: 700;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      float: right;
+      content: "+";
+      color: var(--accent);
+    }
+
+    details[open] summary::after {
+      content: "−";
+    }
+
+    .details-body {
+      padding: 0 20px 20px;
+    }
+
+    .add-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 9px;
+      align-items: end;
+    }
+
+    .custom-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 13px;
+    }
+
+    .custom-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      padding: 9px 11px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      color: var(--muted);
+    }
+
+    .custom-item strong {
+      color: var(--text);
+    }
+
+    .notice {
+      display: none;
+      margin-top: 12px;
+      padding: 11px 13px;
+      border: 1px solid rgba(250, 204, 21, .3);
+      border-radius: 12px;
+      background: rgba(250, 204, 21, .08);
+      color: #fde68a;
+      font-size: .85rem;
+      line-height: 1.45;
+    }
+
+    .footer {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: .78rem;
+      text-align: center;
+    }
+
+    @media (max-width: 860px) {
+      .topbar { display: block; }
+      .save-status { margin-top: 16px; }
+      .layout { grid-template-columns: 1fr; }
+      .history-list { max-height: none; }
+    }
+
+    @media (max-width: 580px) {
+      .app {
+        width: min(100% - 18px, 1180px);
+        padding-top: 18px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .controls,
+      .secondary-actions,
+      .add-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel-inner {
+        padding: 15px;
+      }
+
+      .result {
+        min-height: 235px;
+        padding: 18px 12px;
+      }
+
+      .history-controls {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      body { background: white; color: black; }
+      .topbar, .stats, .left-column, .history-controls, .remove-item, details, .footer {
+        display: none !important;
+      }
+      .layout { display: block; }
+      .panel { border: 0; box-shadow: none; }
+      .history-list { max-height: none; overflow: visible; }
+      .history-item { break-inside: avoid; border-color: #bbb; background: white; }
+      .history-theme { color: black; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">Informática Básica · TMA</div>
+        <h1>Sorteador de temas</h1>
+        <p class="subtitle">
+          Escolha a turma, filtre as categorias e sorteie um tema para a identidade visual dos slides.
+          Cada turma mantém seu próprio histórico.
+        </p>
+      </div>
+      <div class="save-status">Salvo neste navegador</div>
+    </header>
+
+    <section class="stats" aria-label="Resumo do sorteio">
+      <article class="stat">
+        <div class="stat-label">Temas disponíveis</div>
+        <div class="stat-value" id="availableCount">0</div>
+      </article>
+      <article class="stat">
+        <div class="stat-label">Já sorteados na turma</div>
+        <div class="stat-value" id="drawnCount">0</div>
+      </article>
+      <article class="stat">
+        <div class="stat-label">Total da turma</div>
+        <div class="stat-value" id="totalCount">0</div>
+      </article>
+    </section>
+
+    <div class="layout">
+      <div class="left-column">
+        <section class="panel">
+          <div class="panel-inner">
+            <div class="panel-title">
+              <h2>Configurar sorteio</h2>
+              <span id="poolLabel">Preparando temas...</span>
+            </div>
+
+            <div class="controls">
+              <div class="field">
+                <label for="classSelect">Turma</label>
+                <select id="classSelect"></select>
+              </div>
+              <div class="field">
+                <label for="modeSelect">Tipo de sorteio</label>
+                <select id="modeSelect">
+                  <option value="theme">Tema específico</option>
+                  <option value="category">Somente categoria</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="category-block">
+              <div class="category-head">
+                <strong>Categorias participantes</strong>
+                <button type="button" class="text-button" id="toggleCategories">Desmarcar todas</button>
+              </div>
+              <div class="chips" id="categoryChips"></div>
+            </div>
+
+            <div class="option-row">
+              <div>
+                <strong>Evitar repetição</strong>
+                <small>Não repete o mesmo tema enquanto houver opções novas.</small>
+              </div>
+              <label class="switch" aria-label="Evitar repetição">
+                <input id="avoidRepeat" type="checkbox" checked>
+                <span class="switch-track"></span>
+              </label>
+            </div>
+
+            <div class="result" id="result" aria-live="polite">
+              <div class="result-placeholder">
+                O próximo tema aparecerá aqui. O histórico só é registrado quando o sorteio termina.
+              </div>
+            </div>
+
+            <button type="button" class="primary" id="drawButton">Sortear tema</button>
+
+            <div class="secondary-actions">
+              <button type="button" class="secondary" id="undoButton">Desfazer último</button>
+              <button type="button" class="danger" id="resetButton">Limpar turma</button>
+            </div>
+
+            <div class="notice" id="notice" role="status"></div>
+          </div>
+
+          <details class="management">
+            <summary>Adicionar temas personalizados</summary>
+            <div class="details-body">
+              <div class="add-grid">
+                <div class="field">
+                  <label for="customTheme">Novo tema</label>
+                  <input id="customTheme" type="text" maxlength="80" placeholder="Ex.: Minecraft">
+                </div>
+                <div class="field">
+                  <label for="customCategory">Categoria</label>
+                  <input id="customCategory" type="text" maxlength="40" placeholder="Ex.: Jogos">
+                </div>
+                <button type="button" class="small-button" id="addCustomButton">Adicionar</button>
+              </div>
+              <div class="custom-list" id="customList"></div>
+            </div>
+          </details>
+        </section>
+      </div>
+
+      <aside class="panel">
+        <div class="panel-inner">
+          <div class="panel-title">
+            <h2>Histórico</h2>
+            <span id="historyLabel">0 registros</span>
+          </div>
+
+          <div class="history-controls">
+            <select id="historyFilter" aria-label="Filtrar histórico">
+              <option value="current">Turma atual</option>
+              <option value="all">Todas as turmas</option>
+            </select>
+            <button type="button" class="small-button" id="exportButton">Exportar CSV</button>
+          </div>
+
+          <div class="history-list" id="historyList"></div>
+        </div>
+      </aside>
+    </div>
+
+    <p class="footer">
+      Os dados ficam somente neste navegador. Para levar o histórico a outro computador, use “Exportar CSV”.
+    </p>
+  </main>
+
+  <script>
+    const BASE_TOPICS = {"1º A": {"Jogos": ["CS go", "Hollow night", "GTA", "Minecraft", "GOW", "Uncharted", "Roblox", "Warzone", "The sims", "Read dead", "Subway surfers", "Pou", "Gata angela", "Tlou", "Fifa", "Sally face", "Days gone", "Stard valley", "Residente vil", "Day z", "Mortal kombat", "Devil may cry"], "Esportes": ["Futebol", "Judo", "Tai kun do", "Jiu jitso", "Futsal", "Badminton", "Futebol americano", "Hockey", "Boxe", "Volei"], "Anime": ["Record of ragnarok", "One piece", "DEmons slayer", "Naruto", "Vinland saga", "AOT", "Death note", "HxH", "Vagabond", "Haykyuu", "Blue Lock", "Shamam rei", "POkemon", "Gachiakuta", "Dragon ball", "Dan da dan", "Hells Paradise", "Cyberpunk", "Evangelion"], "Cinema": ["Pegue-me se puder", "Carros", "Morte morte morte", "Panico", "Todo mundo em pânico", "Devoradores de estrela", "Sherek", "Wicked", "Madagascar", "O rei arthur", "Odisseia", "Backrooms", "Esquarão suicida", "Sorria", "Cemiterio Maldito", "Casa de cera", "HP"], "Música": ["Guns and roses", "Sistem of fatal", "Metálica", "Baby metal", "Mob", "Creep", "Pop", "Slep note", "Ried – lana", "Pagodinho", "Sertanejo", "MPB", "Gorilaz", "I wanna be yours", "Iron maiden", "Irmão da lua", "Anjos", "Kamaitachi", "Black roles", "Black beault", "Do it", "Kansas", "Nirvana", "Ac/dc"], "Memes": ["O sangue de jesus tem poder", "Jo jo - to be continue", "Eu não quero morer", "Qual é a graça"], "Séries": ["The mentalist", "La casa de papel", "Dexter", "The crown", "Dinastia", "Hannibal", "Invencível", "The boys", "Breaking bead", "Supernatural", "The 8 show", "Aprendendo a lição", "Round six", "Dammer", "All of us are dead", "ST", "Greys anatomy"], "Desenhos": ["Ben 10", "Bob esponja", "Grafity falls", "Hora de aventura", "Backardigans", "Gumball", "Looney toones", "Phineas e Ferb", "Marsha e urso", "Princesinha sofia", "Voltron", "Sitio do pica pau amarelo", "Barbie", "Jovens titans", "Padrinhos mágicos", "Tom e  jerry", "Moranguinho", "As meninas super poderosas", "Winx", "Simpsons", "Family guy", "Pica Pau", "Mr bean", "Coragem o cão", "Pantera cor de rosa", "Shaw o carneiro", "Elena de Avat", "Avatar - desenho", "Galinha pintadinha", "Blue", "Apenas um show", "Patrulha canina", "Lady bug"]}, "1º B": {"Jogos": ["Free fire", "Brawn Star", "Minecraft", "Roblox", "Terraria", "Mortal Kombat"], "Esportes": ["Futsal", "Volei", "Basquete", "Handbol", "JIu-JItso", "Queimada", "Judo"], "Anime": ["Nanatso no taizai", "Blue Lock", "Jujusto", "DMeons slayer", "Haykyuu", "Naruto", "Guren Lagan", "HxH", "Black Clover", "Dragon Ball", "ONe piece", "Pokemon"], "Cinema": ["Homem aranha", "Cidade de Deus", "SHerek", "Michael Jackson", "DEadpoll", "Vingadores", "Tropa de Elite", "Sing", "Como magica", "Cabra bom de bola", "Smurf", "Carros", "Tiro da pesada", "Gente grande", "Todo em pânico", "Panico", "As branquelas", "Para todos os garotos que já amei", "Jogos vorazes", "Jogos mortais", "Project X", "Maquina de guerra", "Velozes e furioso", "Monstros SA", "Minecraft", "JUmanji", "Crepusculo", "Enrolados", "Gigantes de aço", "Se beber não case", "De pernas pro alto", "MIssao impossível", "1 espiao e meio", "Shazam", "Batman"], "Música": ["Hungria", "Guns and roses", "Ritmo perfeito", "Michael Jackson", "Dinamite", "1kilo", "Geleira do tempo", "Insana", "Sua mãe vai amar", "99", "Apesar de você"], "Memes": ["Qual a parte que você mais gosta, minha perna só tenho ela", "Jaison mendes", "Jura Maria Lima", "Se tem demência", "Vai negar pro down", "Tu é mano", "Flho do Bil", "Beringela", "Mercado Livre", "Meu Brasil"], "Séries": ["TVD", "Supernatural", "Bridegerton", "Dexter", "The mentalist", "Teen Wolf", "The originais", "hTYD", "Rick and morty", "Cobra kai", "Dr house", "Bojeck horseman", "La casa de papel", "B99", "ST", "Lucifer", "Uma família da pesada", "Friends", "American Dads", "Chiquititas", "Os simpsosn", "Outer banks", "Peppa pig", "SMile friends", "Peixonauta", "You"], "Desenhos": ["Hora de aventura", "Dora", "Apenas um show", "Terra dos cavalos", "Pocoyo", "Incrível mundo de gumball", "3 espias demais", "Backardigans", "Jovens titans", "Barbie", "Princesinha sofia", "Poderoso chefinho", "Meu amigaozao", "Winx", "Steven universo", "A turma de Charlie brown", "Tom e jerry", "Kicki butowski", "Scooby doo", "Bob sponja", "Meu malvado favorito", "Marsha e o urso", "Moranguinho", "Ben 10", "Gato de botas", "Miraculos", "Power ranger", "Super Shock", "Liga da justiça", "Alvin e os esquilos", "Cavaleiros do zodíaco", "He man", "The Loud house", "Mickey mouse", "Ze comeia e catatal", "O bixo vai pegar", "Turma da monica", "Sitio do pica pal amarelo", "South park"]}, "1º C": {"Jogos": ["Tlou", "Fogo e agua", "Roblox", "Silent hill", "Sliter.io", "Gow", "Fnaf", "COD", "Lol", "GTA", "Resident evil", "CS Go", "Talking tom", "Pou", "Hay day", "Subway surfers", "Stard valley", "Wwc", "Terraria", "Genshin", "Free fire", "Undertale", "Deltarune", "yandere"], "Esportes": ["Volei", "Handball", "Basquete", "Futsal", "Jiu jitsu", "Capoeira", "Kung fu", "Muai thai"], "Anime": ["Hxh", "Jjt", "Diário de uma apotecária", "Naruto", "Demon slayer", "OP", "Jojo", "Pokémon", "Dragon ball", "Baki", "Haykyuu", "Evangelion", "Bleach", "Black clover", "Spy x Family", "Bakugan", "Digimon", "Yu gi oh"], "Cinema": ["Para todos os garotos que já amei", "Maze runner", "Barbie", "Homem aranha", "Velozes e furiosos", "Star wars", "Avatar", "HTYD", "Gente grande", "Piratas do caribe", "Hp", "San andreas", "Oppenhaimer", "Jumanji", "A freira", "Transformers", "Sonic", "Invocação do mal"], "Música": ["Oceano – Djavan", "Onde anda você", "Beat it", "Cadeira cativa", "Tipo tobi", "50 tons", "Hotel california", "Weird Al", "O velho e a flor", "Me beija", "2 rios", "Seven", "Chop suey", "Sistem of a down", "Bonde do tigrão", "Waka waka", "Mosnter", "Pirocada quente 2", "Jontex 2", "Cheia de fogo", "Bala love", "2dinniz", "Bacu exu do blues", "Cuida do pet", "Ro rosa", "Relíquia do 2 t"], "Memes": ["Mc mirela", "E agora Geovane", "Minino fei", "Acertou miseravi", "67 ou 42", "Jojo Toddynho", "Malévola – tiktok", "Mc paiva", "Mínimo vc vai ver"], "Séries": ["Bridgerton", "Pretendente surpresa", "Teen Wolf", "Tvd", "Griim contos", "Peakyb blinders", "The mentalist", "Problema dos 3 corpos", "It a coisa", "Dr house", "Dexter", "Fallout", "La casa de papel", "Outer banks"], "Desenhos": ["Scooby doo", "Pantera cor de rosa", "Gumball", "He man", "Hora de aventura", "Tom e jerry", "Apenas um show", "Thundercats", "Jovens titans", "My litle ponny", "Simpsons", "Power rangers", "Family guy", "Winx", "Mundo de MIA", "Starvs the evil force", "Castelo animado", "Grafitty falls", "Stevem universo", "South park"], "Youtubers": ["Jazzghost", "]viniccius 13", "Authentic", "Tazer Craft", "Cellbit", "Alanzoka", "Core", "Fall", "Aqueles caras", "Você sabia", "Pedro luz - ciência todo dia", "Bistecone", "Luan gameplay"]}};
+    const STORAGE_KEY = "tma-theme-drawer-v1";
+
+    const state = loadState();
+    let isDrawing = false;
+
+    const classSelect = document.getElementById("classSelect");
+    const modeSelect = document.getElementById("modeSelect");
+    const categoryChips = document.getElementById("categoryChips");
+    const avoidRepeat = document.getElementById("avoidRepeat");
+    const result = document.getElementById("result");
+    const drawButton = document.getElementById("drawButton");
+    const undoButton = document.getElementById("undoButton");
+    const resetButton = document.getElementById("resetButton");
+    const notice = document.getElementById("notice");
+    const historyList = document.getElementById("historyList");
+    const historyLabel = document.getElementById("historyLabel");
+    const historyFilter = document.getElementById("historyFilter");
+    const exportButton = document.getElementById("exportButton");
+    const toggleCategories = document.getElementById("toggleCategories");
+    const availableCount = document.getElementById("availableCount");
+    const drawnCount = document.getElementById("drawnCount");
+    const totalCount = document.getElementById("totalCount");
+    const poolLabel = document.getElementById("poolLabel");
+    const customTheme = document.getElementById("customTheme");
+    const customCategory = document.getElementById("customCategory");
+    const addCustomButton = document.getElementById("addCustomButton");
+    const customList = document.getElementById("customList");
+
+    initialize();
+
+    function defaultState() {
+      const histories = {};
+      const custom = {};
+      Object.keys(BASE_TOPICS).forEach(name => {
+        histories[name] = [];
+        custom[name] = [];
+      });
+      return {
+        currentClass: Object.keys(BASE_TOPICS)[0],
+        histories,
+        custom,
+        avoidRepeat: true,
+        mode: "theme",
+        historyFilter: "current"
+      };
+    }
+
+    function loadState() {
+      const fallback = defaultState();
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return fallback;
+        const saved = JSON.parse(raw);
+
+        return {
+          ...fallback,
+          ...saved,
+          histories: { ...fallback.histories, ...(saved.histories || {}) },
+          custom: { ...fallback.custom, ...(saved.custom || {}) }
+        };
+      } catch (error) {
+        return fallback;
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function initialize() {
+      Object.keys(BASE_TOPICS).forEach(className => {
+        const option = document.createElement("option");
+        option.value = className;
+        option.textContent = className;
+        classSelect.appendChild(option);
+      });
+
+      if (!BASE_TOPICS[state.currentClass]) {
+        state.currentClass = Object.keys(BASE_TOPICS)[0];
+      }
+
+      classSelect.value = state.currentClass;
+      modeSelect.value = state.mode;
+      avoidRepeat.checked = state.avoidRepeat;
+      historyFilter.value = state.historyFilter;
+
+      renderCategories();
+      renderAll();
+
+      classSelect.addEventListener("change", () => {
+        state.currentClass = classSelect.value;
+        saveState();
+        hideNotice();
+        renderCategories();
+        clearResult();
+        renderAll();
+      });
+
+      modeSelect.addEventListener("change", () => {
+        state.mode = modeSelect.value;
+        drawButton.textContent = state.mode === "theme" ? "Sortear tema" : "Sortear categoria";
+        saveState();
+        clearResult();
+        renderAll();
+      });
+
+      avoidRepeat.addEventListener("change", () => {
+        state.avoidRepeat = avoidRepeat.checked;
+        saveState();
+        renderAll();
+      });
+
+      historyFilter.addEventListener("change", () => {
+        state.historyFilter = historyFilter.value;
+        saveState();
+        renderHistory();
+      });
+
+      toggleCategories.addEventListener("click", () => {
+        const inputs = [...categoryChips.querySelectorAll("input")];
+        const allChecked = inputs.every(input => input.checked);
+        inputs.forEach(input => input.checked = !allChecked);
+        updateToggleText();
+        renderStats();
+      });
+
+      drawButton.addEventListener("click", draw);
+      undoButton.addEventListener("click", undoLast);
+      resetButton.addEventListener("click", resetCurrentClass);
+      exportButton.addEventListener("click", exportCSV);
+      addCustomButton.addEventListener("click", addCustom);
+      customTheme.addEventListener("keydown", event => {
+        if (event.key === "Enter") addCustom();
+      });
+      customCategory.addEventListener("keydown", event => {
+        if (event.key === "Enter") addCustom();
+      });
+    }
+
+    function getAllTopics(className) {
+      const groups = JSON.parse(JSON.stringify(BASE_TOPICS[className] || {}));
+      (state.custom[className] || []).forEach(item => {
+        if (!groups[item.category]) groups[item.category] = [];
+        groups[item.category].push(item.theme);
+      });
+      return groups;
+    }
+
+    function flattenTopics(className, selectedCategories = null) {
+      const groups = getAllTopics(className);
+      return Object.entries(groups).flatMap(([category, themes]) => {
+        if (selectedCategories && !selectedCategories.includes(category)) return [];
+        return themes.map(theme => ({ category, theme }));
+      });
+    }
+
+    function renderCategories() {
+      const groups = getAllTopics(state.currentClass);
+      categoryChips.innerHTML = "";
+
+      Object.entries(groups).forEach(([category, themes], index) => {
+        const label = document.createElement("label");
+        label.className = "chip";
+
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.value = category;
+        input.checked = true;
+        input.id = `category-${index}`;
+        input.addEventListener("change", () => {
+          updateToggleText();
+          renderStats();
+        });
+
+        const visual = document.createElement("span");
+        visual.textContent = `${category} (${themes.length})`;
+
+        label.append(input, visual);
+        categoryChips.appendChild(label);
+      });
+
+      updateToggleText();
+    }
+
+    function selectedCategories() {
+      return [...categoryChips.querySelectorAll("input:checked")].map(input => input.value);
+    }
+
+    function updateToggleText() {
+      const inputs = [...categoryChips.querySelectorAll("input")];
+      const allChecked = inputs.length > 0 && inputs.every(input => input.checked);
+      toggleCategories.textContent = allChecked ? "Desmarcar todas" : "Marcar todas";
+    }
+
+    function availablePool() {
+      const className = state.currentClass;
+      const categories = selectedCategories();
+      let pool = flattenTopics(className, categories);
+
+      if (state.mode === "category") {
+        return categories.map(category => ({ category, theme: category }));
+      }
+
+      if (state.avoidRepeat) {
+        const used = new Set(
+          (state.histories[className] || [])
+            .filter(item => item.mode === "theme")
+            .map(item => `${item.category}|||${item.theme}`)
+        );
+        pool = pool.filter(item => !used.has(`${item.category}|||${item.theme}`));
+      }
+
+      return pool;
+    }
+
+    function draw() {
+      if (isDrawing) return;
+
+      const pool = availablePool();
+      if (!selectedCategories().length) {
+        showNotice("Marque pelo menos uma categoria para realizar o sorteio.");
+        return;
+      }
+
+      if (!pool.length) {
+        showNotice("Todos os temas selecionados já foram sorteados. Limpe o histórico da turma ou desative “Evitar repetição”.");
+        return;
+      }
+
+      hideNotice();
+      isDrawing = true;
+      drawButton.disabled = true;
+      result.classList.add("drawing");
+
+      const previewPool = state.mode === "category"
+        ? selectedCategories().map(category => ({ category, theme: category }))
+        : flattenTopics(state.currentClass, selectedCategories());
+
+      let ticks = 0;
+      const maxTicks = 15;
+      const timer = setInterval(() => {
+        const preview = previewPool[Math.floor(Math.random() * previewPool.length)];
+        showResult(preview, true);
+        ticks += 1;
+
+        if (ticks >= maxTicks) {
+          clearInterval(timer);
+          const winner = pool[Math.floor(Math.random() * pool.length)];
+          result.classList.remove("drawing");
+          showResult(winner, false);
+          registerWinner(winner);
+          isDrawing = false;
+          drawButton.disabled = false;
+        }
+      }, 80);
+    }
+
+    function showResult(item, preview) {
+      const className = state.currentClass;
+      const label = state.mode === "category" ? "Categoria sorteada" : item.category;
+      const meta = preview
+        ? "Sorteando..."
+        : `${className} · ${formatDate(new Date())}`;
+
+      result.innerHTML = `
+        <div class="result-content">
+          <div class="result-category">${escapeHTML(label)}</div>
+          <div class="result-theme">${escapeHTML(item.theme)}</div>
+          <div class="result-meta">${escapeHTML(meta)}</div>
+        </div>
+      `;
+    }
+
+    function registerWinner(winner) {
+      const record = {
+        id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+        className: state.currentClass,
+        category: winner.category,
+        theme: winner.theme,
+        mode: state.mode,
+        timestamp: new Date().toISOString()
+      };
+
+      state.histories[state.currentClass].unshift(record);
+      saveState();
+      renderAll();
+    }
+
+    function undoLast() {
+      const history = state.histories[state.currentClass] || [];
+      if (!history.length) {
+        showNotice("Esta turma ainda não possui sorteios para desfazer.");
+        return;
+      }
+
+      history.shift();
+      saveState();
+      clearResult();
+      showNotice("O último sorteio da turma foi removido do histórico.");
+      renderAll();
+    }
+
+    function resetCurrentClass() {
+      const history = state.histories[state.currentClass] || [];
+      if (!history.length) {
+        showNotice("O histórico desta turma já está vazio.");
+        return;
+      }
+
+      const confirmed = window.confirm(`Limpar todo o histórico da turma ${state.currentClass}?`);
+      if (!confirmed) return;
+
+      state.histories[state.currentClass] = [];
+      saveState();
+      clearResult();
+      showNotice(`Histórico da turma ${state.currentClass} apagado.`);
+      renderAll();
+    }
+
+    function removeHistoryItem(className, id) {
+      state.histories[className] = (state.histories[className] || []).filter(item => item.id !== id);
+      saveState();
+      renderAll();
+    }
+
+    function renderAll() {
+      drawButton.textContent = state.mode === "theme" ? "Sortear tema" : "Sortear categoria";
+      renderStats();
+      renderHistory();
+      renderCustomList();
+    }
+
+    function renderStats() {
+      const className = state.currentClass;
+      const selected = selectedCategories();
+      const allForSelected = flattenTopics(className, selected);
+      const pool = availablePool();
+      const history = state.histories[className] || [];
+      const topicDraws = history.filter(item => item.mode === "theme").length;
+
+      totalCount.textContent = flattenTopics(className).length;
+      drawnCount.textContent = topicDraws;
+      availableCount.textContent = pool.length;
+      poolLabel.textContent = `${pool.length} opção${pool.length === 1 ? "" : "ões"} no sorteio`;
+      undoButton.disabled = history.length === 0;
+    }
+
+    function getVisibleHistory() {
+      if (state.historyFilter === "all") {
+        return Object.values(state.histories)
+          .flat()
+          .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      }
+      return state.histories[state.currentClass] || [];
+    }
+
+    function renderHistory() {
+      const records = getVisibleHistory();
+      historyList.innerHTML = "";
+      historyLabel.textContent = `${records.length} registro${records.length === 1 ? "" : "s"}`;
+
+      if (!records.length) {
+        const empty = document.createElement("div");
+        empty.className = "history-empty";
+        empty.textContent = state.historyFilter === "all"
+          ? "Nenhum sorteio foi registrado."
+          : "Esta turma ainda não possui sorteios.";
+        historyList.appendChild(empty);
+        return;
+      }
+
+      records.forEach((record, index) => {
+        const item = document.createElement("article");
+        item.className = "history-item";
+
+        const count = document.createElement("div");
+        count.className = "history-index";
+        count.textContent = String(records.length - index).padStart(2, "0");
+
+        const main = document.createElement("div");
+        main.className = "history-main";
+
+        const theme = document.createElement("div");
+        theme.className = "history-theme";
+        theme.textContent = record.theme;
+
+        const meta = document.createElement("div");
+        meta.className = "history-meta";
+        const modeText = record.mode === "category" ? "categoria" : record.category;
+        meta.textContent = `${record.className} · ${modeText} · ${formatDate(new Date(record.timestamp))}`;
+
+        main.append(theme, meta);
+
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "remove-item";
+        remove.textContent = "×";
+        remove.title = "Remover este registro";
+        remove.setAttribute("aria-label", `Remover ${record.theme} do histórico`);
+        remove.addEventListener("click", () => removeHistoryItem(record.className, record.id));
+
+        item.append(count, main, remove);
+        historyList.appendChild(item);
+      });
+    }
+
+    function addCustom() {
+      const theme = customTheme.value.trim();
+      const category = customCategory.value.trim();
+
+      if (!theme || !category) {
+        showNotice("Preencha o nome do tema e a categoria.");
+        return;
+      }
+
+      const exists = flattenTopics(state.currentClass).some(
+        item => item.theme.toLocaleLowerCase("pt-BR") === theme.toLocaleLowerCase("pt-BR")
+          && item.category.toLocaleLowerCase("pt-BR") === category.toLocaleLowerCase("pt-BR")
+      );
+
+      if (exists) {
+        showNotice("Esse tema já existe nessa categoria.");
+        return;
+      }
+
+      state.custom[state.currentClass].push({
+        id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+        theme,
+        category
+      });
+
+      customTheme.value = "";
+      customCategory.value = "";
+      saveState();
+      hideNotice();
+      renderCategories();
+      renderAll();
+    }
+
+    function renderCustomList() {
+      customList.innerHTML = "";
+      const items = state.custom[state.currentClass] || [];
+
+      if (!items.length) {
+        const empty = document.createElement("div");
+        empty.className = "custom-item";
+        empty.textContent = "Nenhum tema personalizado nesta turma.";
+        customList.appendChild(empty);
+        return;
+      }
+
+      items.forEach(item => {
+        const row = document.createElement("div");
+        row.className = "custom-item";
+
+        const text = document.createElement("span");
+        text.innerHTML = `<strong>${escapeHTML(item.theme)}</strong> · ${escapeHTML(item.category)}`;
+
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "remove-item";
+        remove.textContent = "×";
+        remove.title = "Excluir tema personalizado";
+        remove.addEventListener("click", () => {
+          state.custom[state.currentClass] = state.custom[state.currentClass].filter(custom => custom.id !== item.id);
+          saveState();
+          renderCategories();
+          renderAll();
+        });
+
+        row.append(text, remove);
+        customList.appendChild(row);
+      });
+    }
+
+    function exportCSV() {
+      const records = getVisibleHistory();
+      if (!records.length) {
+        showNotice("Não há registros para exportar.");
+        return;
+      }
+
+      const rows = [
+        ["Turma", "Tema", "Categoria", "Tipo", "Data e hora"],
+        ...records.map(item => [
+          item.className,
+          item.theme,
+          item.category,
+          item.mode === "category" ? "Categoria" : "Tema",
+          new Date(item.timestamp).toLocaleString("pt-BR")
+        ])
+      ];
+
+      const csv = "\uFEFF" + rows.map(row =>
+        row.map(value => `"${String(value).replaceAll('"', '""')}"`).join(";")
+      ).join("\n");
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `historico-temas-${state.historyFilter === "all" ? "todas-as-turmas" : slug(state.currentClass)}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function clearResult() {
+      result.classList.remove("drawing");
+      result.innerHTML = `
+        <div class="result-placeholder">
+          O próximo tema aparecerá aqui. O histórico só é registrado quando o sorteio termina.
+        </div>
+      `;
+    }
+
+    function showNotice(message) {
+      notice.textContent = message;
+      notice.style.display = "block";
+    }
+
+    function hideNotice() {
+      notice.style.display = "none";
+      notice.textContent = "";
+    }
+
+    function formatDate(date) {
+      return date.toLocaleString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+
+    function slug(value) {
+      return value
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-zA-Z0-9]+/g, "-")
+        .replace(/^-|-$/g, "")
+        .toLowerCase();
+    }
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      })[character]);
+    }
+  </script>
+</body>
+</html>
